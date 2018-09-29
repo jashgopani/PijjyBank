@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Pijjy Bank</string>
+    <string name="username">Username/Email</string>
+    <string name="password">Password</string>
+    <string name="registerLink"><u>Not a member yet ? Register Here</u></string>
+    <string name="gotoLogin"><u>Already a member? Login here</u></string>
+    <string name="signUp">Sign Up</string>
+    <string name="title_activity_payroll">PayrollActivity</string>
+    <string name="title_activity_test">test</string>
+    <string xmlns:tools="http://schemas.android.com/tools" name="override_appbar_scrolling_view_behavior" translatable="false" tools:override="true">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="title_activity_basic">basic</string>
+    <string name="login_title">Login</string>
+    <string name="app_logout">logout</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="currency_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
+    <string-array name="expenseCategory_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
+    <string-array name="payment_mode_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+</resources>

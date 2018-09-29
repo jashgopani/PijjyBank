@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="customToolbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent1</item>
+        <item name="colorAccent">@color/colorAccent1</item>
+        <item name="cardViewStyle">@style/CardView</item>
+    </style>
+
+    <!-- Custom Popup theme. -->
+    <style name="customPopup" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+</resources>

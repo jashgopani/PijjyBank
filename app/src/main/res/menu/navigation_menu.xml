@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:drawSelectorOnTop="true">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/Timeline"
+            android:icon="@drawable/ic_baseline_timeline_24px"
+            android:orderInCategory="1"
+            android:title="Timeline"
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/Profile"
+            android:icon="@drawable/ic_baseline_person_24px"
+            android:orderInCategory="3"
+            android:title="Profile"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/Dashboard"
+            android:icon="@drawable/ic_baseline_dashboard_24px"
+            android:orderInCategory="2"
+            android:title="Dashboard"
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/Logout"
+            android:icon="@drawable/ic_baseline_exit_to_app_24px"
+            android:orderInCategory="4"
+            android:title="Logout"
+            app:showAsAction="never" />
+    </group>
+</menu>

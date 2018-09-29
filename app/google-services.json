@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "12404166162",
+    "firebase_url": "https://pijjy-bank.firebaseio.com",
+    "project_id": "pijjy-bank",
+    "storage_bucket": "pijjy-bank.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12404166162:android:8271ac255cf557c9",
+        "android_client_info": {
+          "package_name": "com.example.android.pijjybank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12404166162-dj9pp3nb28i35hl69c05d1597jtfquja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4Cin4MdVhs1WpwUqm0OgHCDhhT1FtIqc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
