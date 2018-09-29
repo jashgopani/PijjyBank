@@ -25,23 +25,14 @@
             android:layout_width="match_parent"
             android:id="@+id/payroll_appbar"
             android:layout_height="?attr/actionBarSize"
+            app:title="Timeline"
+            app:titleTextColor="#ffffff"
             android:theme="@style/customToolbar"
             app:popupTheme="@style/customPopup"
             app:theme="@style/customToolbar"
             android:drawSelectorOnTop="true"
             tools:ignore="InvalidId">
 
-            <TextView
-                android:id="@+id/appbarTitle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="0px"
-                android:fontFamily="sans-serif"
-                android:gravity="center_vertical"
-                android:text="Title"
-                android:textSize="21sp"
-                app:fontFamily="sans-serif"
-                android:textColor="@android:color/white"/>
         </android.support.v7.widget.Toolbar>
 
 

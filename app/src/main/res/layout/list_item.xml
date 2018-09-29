@@ -13,9 +13,10 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:layout_margin="5dp"
             android:id="@+id/category_image_view"
-            android:layout_width="88dp"
-            android:layout_height="88dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/ic_baseline_insert_photo_24px" />
 
         <LinearLayout

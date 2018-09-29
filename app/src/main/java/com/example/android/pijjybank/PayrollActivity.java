@@ -42,9 +42,9 @@ public class PayrollActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.payroll_appbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        appbarTitle=(TextView)findViewById(R.id.appbarTitle);
-        appbarTitle.setText("Transactions");
         mDrawerLayout = findViewById(R.id.navd);
 
         ActionBar actionbar = getSupportActionBar();
@@ -136,6 +136,12 @@ public class PayrollActivity extends AppCompatActivity {
         finish();
         startActivity(new Intent(PayrollActivity.this, LoginActivity.class));
         Toast.makeText(this, "Logout Successful ", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }

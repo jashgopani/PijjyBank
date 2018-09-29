@@ -16,21 +16,11 @@
         android:drawSelectorOnTop="true"
         android:theme="@style/customToolbar"
         app:popupTheme="@style/customPopup"
+        app:title="New Expense"
+        app:titleTextColor="#ffffff"
         app:theme="@style/customToolbar"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
-
-        <TextView
-            android:id="@+id/appbarTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="0px"
-            android:fontFamily="sans-serif"
-            android:gravity="center_vertical"
-            android:text="Title"
-            android:textColor="@android:color/white"
-            android:textSize="21sp"
-            app:fontFamily="sans-serif" />
 
     </android.support.v7.widget.Toolbar>
 <!--main wala layout-->
@@ -188,15 +178,6 @@
         android:layout_gravity="end|bottom"
         android:orientation="horizontal"
         android:padding="0dp">
-
-        <Button
-            android:layout_margin="0dp"
-            android:id="@+id/cancel_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:text="Cancel" />
 
         <Button
             android:layout_margin="0dp"
