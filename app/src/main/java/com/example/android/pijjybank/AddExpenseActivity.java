@@ -45,19 +45,21 @@ public class AddExpenseActivity extends AppCompatActivity {
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         currencyType.setAdapter(adapter3);
 
-        database = FirebaseDatabase.getInstance().getReference("https://pijjy-bank.firebaseio.com/");
+        database = FirebaseDatabase.getInstance().getReference();
 
 
         save=(Button)findViewById(R.id.save_button);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Transaction t = new Transaction("Nibba","Expensive",1223,"11/09/2018");
+                DatabaseReference child = database.child("Transaction");
+                child.push().setValue(t);
             }
         });
 
     }
-
+//
     @Override
     public boolean onSupportNavigateUp() {
         finish();

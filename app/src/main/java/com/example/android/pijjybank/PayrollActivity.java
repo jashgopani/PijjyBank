@@ -68,7 +68,7 @@ public class PayrollActivity extends AppCompatActivity {
         transactionList = new ArrayList<>();
 
         for(int i=50;i<10000;i+=60){
-            transactionList.add(new Transaction("Title","Transaction Category",i));
+            transactionList.add(new Transaction("Title","Transaction Category",i,"11/09/1082    "));
         }
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
