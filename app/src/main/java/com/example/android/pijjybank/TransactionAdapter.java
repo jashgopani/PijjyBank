@@ -41,7 +41,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
         Transaction transaction = transactionList.get(position); //to get the transaction at current position
         holder.titleTextView.setText(transaction.getTitle());
-
+        holder.imageview.setImageResource(transaction.categoryIcon);
         holder.dateTextView.setText(transaction.getDate());
         holder.amountTextView.setText(transaction.getAmount());
 

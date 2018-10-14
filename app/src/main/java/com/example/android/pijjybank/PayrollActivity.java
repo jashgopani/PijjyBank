@@ -19,9 +19,17 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.android.pijjybank.RegistrationActivity.calledAlready;
 
 public class PayrollActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
@@ -32,13 +40,60 @@ public class PayrollActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TransactionAdapter expenseAdapter;
     List<Transaction> transactionList;
+    DatabaseReference UserRef;
+
+    String userEmail;
+    TextView emailSideBar;
+    NavigationView navigationView;
+    View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //enabling offline capabilities
+        if (!calledAlready)
+        {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            calledAlready = true;
+        }
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        String id = firebaseAuth.getCurrentUser().getUid();
+        UserRef = FirebaseDatabase.getInstance().getReference("Users");
+
+        ValueEventListener nameListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User current = dataSnapshot.getValue(User.class);
+                Log.v("xyz Object",current.toString());
+//                Log.v("xyz Name",current.getName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        UserRef.addValueEventListener(nameListener);
+
+
         super.onCreate(savedInstanceState);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         setContentView(R.layout.activity_payroll);
 
+        //setting up the navigation view
+        navigationView = (NavigationView)findViewById(R.id.nav_view);
+        headerView = navigationView.getHeaderView(0);
+        if (user != null) {
+            // User is signed in
+            userEmail = user.getEmail();
+            emailSideBar = (TextView)headerView.findViewById(R.id.userEmail);
+
+        }
+        emailSideBar.setText(userEmail);
 
         Toolbar toolbar = findViewById(R.id.payroll_appbar);
         setSupportActionBar(toolbar);
@@ -68,7 +123,7 @@ public class PayrollActivity extends AppCompatActivity {
         transactionList = new ArrayList<>();
 
         for(int i=50;i<10000;i+=60){
-            transactionList.add(new Transaction("Title","Transaction Category",i,"11/09/1082    "));
+            transactionList.add(new Transaction("Title","Transaction Category",R.drawable.entertainment,i));
         }
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);

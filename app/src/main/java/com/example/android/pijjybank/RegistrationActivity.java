@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,14 +17,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity {
-    private EditText etUserName, etPassword, etRegConfirmPassword;
+    private EditText etUserName, etPassword, etRegConfirmPassword, etRegName;
     private Button registerBtn;
     private TextView gotoLogin;
     private Toolbar toolbar;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+    private DatabaseReference db;
+    static boolean calledAlready = false;
+    private String name;
 
 
     @Override
@@ -32,6 +38,12 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_regsitration);
 
         initialize();
+        //enabling offline capabilities
+        if (!calledAlready)
+        {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            calledAlready = true;
+        }
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -51,7 +63,21 @@ public class RegistrationActivity extends AppCompatActivity {
                     firebaseAuth.createUserWithEmailAndPassword(user_email, user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+                            if (task.isSuccessful()) { //Add username to the database
+                                final String id = firebaseAuth.getCurrentUser().getUid();
+                                db = FirebaseDatabase.getInstance().getReference("Users/");
+                                db.child(id).setValue(new User(name));
+                                Log.v("Jash","User id :"+id);
+                                /*
+                                * {
+                                *   users : {
+                                *       id : {
+                                *           name : etRegName
+                                *       }
+                                *   }
+                                * }
+                                */
+
                                 progressDialog.dismiss();
                                 Toast.makeText(RegistrationActivity.this, "Registration Successful ", Toast.LENGTH_SHORT).show();
                                 RegistrationActivity.this.finish();
@@ -79,6 +105,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private void initialize() {
         etUserName = (EditText) findViewById(R.id.etRegUsername);
         etPassword = (EditText) findViewById(R.id.etRegPassword);
+        etRegName = (EditText) findViewById(R.id.etRegName);
         etRegConfirmPassword = (EditText) findViewById(R.id.etRegConfirmPassword);
         registerBtn = (Button) findViewById(R.id.registerBtn);
         gotoLogin = (TextView) findViewById(R.id.tvToLogin);
@@ -93,9 +120,10 @@ public class RegistrationActivity extends AppCompatActivity {
         String username = etUserName.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String cpassword = etRegConfirmPassword.getText().toString().trim();
+        name = etRegName.getText().toString();
 
-        if (username.isEmpty() || password.isEmpty() || cpassword.isEmpty()) {
-            Toast.makeText(this, "Credentials cannot be blank ", Toast.LENGTH_SHORT).show();
+        if (username.isEmpty() || password.isEmpty() || cpassword.isEmpty() || name.isEmpty()) {
+            Toast.makeText(this, "Detials cannot be blank ", Toast.LENGTH_SHORT).show();
         } else if (!cpassword.equals(password)) {
             Toast.makeText(this, "Passwords do not match " + cpassword, Toast.LENGTH_SHORT).show();
         } else {
@@ -103,4 +131,5 @@ public class RegistrationActivity extends AppCompatActivity {
         }
         return result;
     }
+
 }

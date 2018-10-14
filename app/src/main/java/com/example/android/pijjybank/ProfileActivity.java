@@ -11,10 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileActivity extends AppCompatActivity{
 
@@ -22,25 +24,33 @@ public class ProfileActivity extends AppCompatActivity{
     FirebaseAuth firebaseAuth;
     private DrawerLayout mDrawerLayout;
     private TextView appbarTitle;
+    String userEmail;
+    TextView emailSideBar;
+    NavigationView navigationView;
+    View headerView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        //setting the toolbar
        Toolbar toolbar = findViewById(R.id.profile_appbar);
         setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24px);
+
+        //Firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
         appbarTitle = (TextView) findViewById(R.id.appbarTitle);
         appbarTitle.setText("Profile");
         mDrawerLayout = findViewById(R.id.navd);
 
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24px);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+       navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -50,6 +60,15 @@ public class ProfileActivity extends AppCompatActivity{
                 return true;
             }
         });
+
+        headerView = navigationView.getHeaderView(0);
+        if (user != null) {
+            // User is signed in
+            userEmail = user.getEmail();
+            emailSideBar = (TextView)headerView.findViewById(R.id.userEmail);
+
+        }
+        emailSideBar.setText(userEmail);
     }
 
     @Override

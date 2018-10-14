@@ -22,35 +22,37 @@
     <string name="action_settings">Settings</string>
 
     <string-array name="currency_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>INR</item>
+        <item>USD</item>
+        <item>AUD</item>
+        <item>EUR</item>
+        <item>JPY</item>
+        <item>GBP</item>
     </string-array>
 
     <string-array name="expenseCategory_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>Food</item>
+        <item>Travel</item>
+        <item>Shopping</item>
+        <item>Health Care</item>
+        <item>Entertainment</item>
+        <item>Fees</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="incomeCategory_array">
+        <item>Salary</item>
+        <item>Gift</item>
+        <item>Decpreciation</item>
+        <item>Cashback</item>
+        <item>Prize</item>
+        <item>Other</item>
     </string-array>
 
     <string-array name="payment_mode_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>Cash</item>
+        <item>Cheque</item>
+        <item>Online</item>
+        <item>Other</item>
     </string-array>
 </resources>
