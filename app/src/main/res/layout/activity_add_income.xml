@@ -34,6 +34,7 @@
             android:id="@+id/incomeTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
             android:hint="Expense Title"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="82dp" />
@@ -42,6 +43,7 @@
             android:id="@+id/incomeCategory"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:backgroundTint="@color/colorPrimary"
             android:layout_marginVertical="5dp"
             android:entries="@array/incomeCategory_array"
             android:paddingTop="10dp"></Spinner>
@@ -64,6 +66,7 @@
                     android:text="Amount" />
 
                 <EditText
+                    android:backgroundTint="@color/colorPrimary"
                     android:id="@+id/incomeAmount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -83,6 +86,7 @@
                 <EditText
                     android:id="@+id/incomePayer"
                     android:layout_width="match_parent"
+                    android:backgroundTint="@color/colorPrimary"
                     android:layout_height="match_parent"
                     android:hint="John Doe" />
             </LinearLayout>
@@ -112,6 +116,7 @@
                 <EditText
                     android:id="@+id/incomeDate"
                     android:layout_width="match_parent"
+                    android:backgroundTint="@color/colorPrimary"
                     android:layout_height="match_parent"
                     android:hint="dd MMM,yyyy"
                     android:inputType="date" />
@@ -132,6 +137,7 @@
                     android:id="@+id/incomeMode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:backgroundTint="@color/colorPrimary"
                     android:entries="@array/payment_mode_array" />
             </LinearLayout>
 
@@ -163,6 +169,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
             android:inputType="text|textMultiLine" />
 
     </LinearLayout>
@@ -179,6 +186,9 @@
         <Button
             android:id="@+id/save_button"
             android:layout_width="0dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
             android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:layout_weight="1"

@@ -33,6 +33,7 @@
         >
 
         <EditText
+            android:backgroundTint="@color/colorPrimary"
             android:id="@+id/expenseTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
             tools:layout_editor_absoluteY="82dp" />
 
         <Spinner
+            android:backgroundTint="@color/colorPrimary"
             android:id="@+id/expenseCategory"
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -65,6 +67,7 @@
                     android:text="Amount" />
 
                 <EditText
+                    android:backgroundTint="@color/colorPrimary"
                     android:id="@+id/expenseAmount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -82,6 +85,7 @@
                     android:text="Payee" />
 
                 <EditText
+                    android:backgroundTint="@color/colorPrimary"
                     android:id="@+id/expensePayee"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -112,6 +116,7 @@
 
                 <EditText
                     android:id="@+id/expenseDate"
+                    android:backgroundTint="@color/colorPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="date"
@@ -131,6 +136,7 @@
 
                 <android.support.v7.widget.AppCompatSpinner
                     android:id="@+id/expenseMode"
+                    android:backgroundTint="@color/colorPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:entries="@array/payment_mode_array"/>
@@ -148,6 +154,7 @@
                     android:text="Currency Type" />
 
                 <android.support.v7.widget.AppCompatSpinner
+                    android:backgroundTint="@color/colorPrimary"
                     android:id="@+id/expenseCurrency"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -165,6 +172,7 @@
             android:id="@+id/expenseDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
             android:inputType="text|textMultiLine"/>
 
     </LinearLayout>
@@ -180,6 +188,9 @@
 
         <Button
             android:layout_margin="0dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
             android:id="@+id/save_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"

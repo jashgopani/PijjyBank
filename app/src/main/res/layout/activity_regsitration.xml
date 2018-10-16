@@ -5,10 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/blue_gradient"
     android:paddingHorizontal="40dp"
-    android:paddingVertical="40dp">
+    android:paddingVertical="40dp"
+    >
 
     <TextView
+        android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign Up"
@@ -24,9 +27,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Username"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:layout_marginTop="30dp"/>
+
     <EditText
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/white"
         android:id="@+id/etRegName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,12 +40,15 @@
         android:layout_marginBottom="10dp"/>
 
     <TextView
+        android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Email Id"
-        android:textColor="@android:color/black"
         android:layout_marginTop="10dp"/>
+
     <EditText
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/white"
         android:layout_marginBottom="10dp"
         android:id="@+id/etRegUsername"
         android:layout_width="match_parent"
@@ -51,13 +60,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/password"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:layout_marginTop="10dp"/>
 
 
     <EditText
         android:layout_marginBottom="10dp"
         android:id="@+id/etRegPassword"
+        android:backgroundTint="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Min 6 characters"
@@ -65,20 +77,22 @@
 
     <TextView
         android:layout_width="match_parent"
+        android:textColor="@android:color/white"
         android:layout_height="wrap_content"
         android:text="Confirm Password"
-        android:textColor="@android:color/black"
         android:layout_marginTop="10dp"/>
 
     <EditText
+        android:textColor="@android:color/white"
         android:layout_marginBottom="10dp"
         android:id="@+id/etRegConfirmPassword"
+        android:backgroundTint="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword" />
 
     <Button
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_gravity="center"
         android:paddingHorizontal="30dp"
         android:id="@+id/registerBtn"
@@ -86,10 +100,12 @@
         android:layout_height="wrap_content"
         android:drawSelectorOnTop="true"
         android:text="@string/signUp"
+        android:background="@drawable/rounded_button"
         android:textAllCaps="false"
         android:textSize="24sp" />
 
     <TextView
+        android:textColor="@android:color/white"
         android:layout_marginTop="10dp"
         android:id="@+id/tvToLogin"
         android:layout_width="match_parent"
