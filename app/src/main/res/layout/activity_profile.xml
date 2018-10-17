@@ -18,8 +18,22 @@
         android:orientation="vertical"
         tools:context=".PayrollActivity">
 
-        <include layout="@layout/appbar"
-            android:id="@+id/profile_appbar"/>
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:drawSelectorOnTop="true"
+            android:theme="@style/customToolbar"
+            app:popupTheme="@style/customPopup"
+            app:title="Profile"
+            app:titleTextColor="#ffffff"
+            app:theme="@style/customToolbar"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
+
+        </android.support.v7.widget.Toolbar>
+
 
 
     </LinearLayout>

@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.example.android.pijjybank.RegistrationActivity.calledAlready;
@@ -40,9 +41,10 @@ public class PayrollActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TransactionAdapter expenseAdapter;
     List<Transaction> transactionList;
-    DatabaseReference UserRef;
-
+    DatabaseReference UserRef,TransactionsRef;
+    User currentuser;
     String userEmail;
+    String id;
     TextView emailSideBar;
     NavigationView navigationView;
     View headerView;
@@ -57,15 +59,20 @@ public class PayrollActivity extends AppCompatActivity {
         }
 
         firebaseAuth = FirebaseAuth.getInstance();
-        String id = firebaseAuth.getCurrentUser().getUid();
+        id = firebaseAuth.getCurrentUser().getUid();
         UserRef = FirebaseDatabase.getInstance().getReference("Users");
-
         ValueEventListener nameListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User current = dataSnapshot.getValue(User.class);
-                Log.v("xyz Object",current.toString());
-//                Log.v("xyz Name",current.getName());
+                for(DataSnapshot snapshot:dataSnapshot.getChildren())
+                {
+                    User current = snapshot.getValue(User.class);
+                    String key = snapshot.getKey();
+                    if(key.equals(id))
+                        Toast.makeText(PayrollActivity.this,current.getName(),Toast.LENGTH_SHORT).show();
+                }
+
+
             }
 
             @Override
@@ -73,8 +80,31 @@ public class PayrollActivity extends AppCompatActivity {
 
             }
         };
-
         UserRef.addValueEventListener(nameListener);
+
+        //Transactions retive
+        transactionList = new ArrayList<>();
+//        transactionList.add(new Transaction("jash","jash",R.drawable.healthcare,123));
+
+        TransactionsRef = FirebaseDatabase.getInstance().getReference("Transactions/Expense");
+        ValueEventListener transactionListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren())
+                {
+                    Transaction temp = snapshot.getValue(Transaction.class);
+                    transactionList.add(temp);
+                }
+                Collections.reverse(transactionList);
+                expenseAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        TransactionsRef.addValueEventListener(transactionListener);
 
 
         super.onCreate(savedInstanceState);
@@ -120,14 +150,9 @@ public class PayrollActivity extends AppCompatActivity {
             }
         });
 
-        transactionList = new ArrayList<>();
-
-        for(int i=50;i<10000;i+=60){
-            transactionList.add(new Transaction("Title","Transaction Category",R.drawable.entertainment,i));
-        }
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         expenseAdapter = new TransactionAdapter(this, (ArrayList<Transaction>) transactionList);
@@ -174,6 +199,7 @@ public class PayrollActivity extends AppCompatActivity {
                 return true;
 
             case R.id.Dashboard:
+                startActivity(new Intent(PayrollActivity.this,dashboard.class));
                 return true;
 
             case R.id.Profile:

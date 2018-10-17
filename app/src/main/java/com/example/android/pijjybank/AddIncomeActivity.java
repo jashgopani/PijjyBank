@@ -62,7 +62,7 @@ public class AddIncomeActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Transaction t = new Transaction("Nibba","Expensive",5,6969);
+                Transaction t = new Transaction("Nibba","Expensive",5,"6969");
                 DatabaseReference child = database.child("Transactions/Income");
                 child.push().setValue(t);
             }

@@ -32,7 +32,8 @@
         <activity android:name=".PayrollActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".AddExpenseActivity" />
-        <activity android:name=".AddIncomeActivity"></activity>
+        <activity android:name=".AddIncomeActivity" />
+        <activity android:name=".dashboard"></activity>
     </application>
 
 </manifest>

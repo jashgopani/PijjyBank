@@ -66,7 +66,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             if (task.isSuccessful()) { //Add username to the database
                                 final String id = firebaseAuth.getCurrentUser().getUid();
                                 db = FirebaseDatabase.getInstance().getReference("Users/");
-                                db.child(id).setValue(name);
+                                db.child(id).setValue(new User(name));
                                 Log.v("Jash","User id :"+id);
                                 /*
                                 * {
@@ -117,7 +117,7 @@ public class RegistrationActivity extends AppCompatActivity {
         progressDialog.setMessage("Verifying Details");
         progressDialog.show();
 
-        String username = etUserName.getText().toString().trim();
+        String username = etUserName.getText().toString().trim();//for email
         String password = etPassword.getText().toString().trim();
         String cpassword = etRegConfirmPassword.getText().toString().trim();
         name = etRegName.getText().toString();

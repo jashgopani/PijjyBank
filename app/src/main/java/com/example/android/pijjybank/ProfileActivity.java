@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,6 +88,7 @@ public class ProfileActivity extends AppCompatActivity{
                 return true;
 
             case R.id.Dashboard:
+                startActivity(new Intent(ProfileActivity.this,dashboard.class));
                 return true;
 
             case R.id.Profile:

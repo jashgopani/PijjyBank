@@ -9,7 +9,7 @@ import java.util.Calendar;
 public class Transaction {
     String title;
     String category;
-    int amount;
+    String amount;
     int categoryIcon;
     String date;
 
@@ -17,7 +17,7 @@ public class Transaction {
         Log.i("default","constructor");
     }
 
-    public Transaction(String mTitle, String mCategory,int mCategoryIcon,int mAmount){
+    public Transaction(String mTitle, String mCategory,int mCategoryIcon,String mAmount){
         this.title=mTitle;
         this.category=mCategory;
         this.amount=mAmount;
@@ -35,7 +35,7 @@ public class Transaction {
     }
 
     public String getAmount(){
-        return String.valueOf(amount);
+        return amount;
     }
 
     public String getDate(){
