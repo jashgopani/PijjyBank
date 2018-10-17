@@ -7,23 +7,32 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Transaction {
+    String uid;
     String title;
     String category;
     String amount;
+    String mode,party,description;
+    String type;//Expense or Income
+
+    public Transaction(String type,String uid, String title, int categoryIcon,String category, String amount, String mode, String party, String description) {
+        this.type = type;
+        this.uid = uid;
+        this.title = title;
+        this.category = category;
+        this.amount = amount;
+        this.mode = mode;
+        this.party = party;
+        this.description = description;
+        DateFormat df = new SimpleDateFormat("dd MMM, yyyy");
+        this.date = df.format(Calendar.getInstance().getTime());
+        this.categoryIcon = categoryIcon;
+    }
+
     int categoryIcon;
     String date;
 
     public Transaction(){
         Log.i("default","constructor");
-    }
-
-    public Transaction(String mTitle, String mCategory,int mCategoryIcon,String mAmount){
-        this.title=mTitle;
-        this.category=mCategory;
-        this.amount=mAmount;
-        DateFormat df = new SimpleDateFormat("dd MMM, yyyy");
-        this.date = df.format(Calendar.getInstance().getTime());
-        this.categoryIcon = mCategoryIcon;
     }
 
     public String getTitle(){

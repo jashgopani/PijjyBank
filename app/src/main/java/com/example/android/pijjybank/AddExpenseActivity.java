@@ -2,24 +2,19 @@ package com.example.android.pijjybank;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -33,8 +28,8 @@ public class AddExpenseActivity extends AppCompatActivity {
     String expenseCategory;
     int categoryIcon;
     Toolbar toolbar;
-    private String titleValue, categoryValue, modeValue, payeeValue, descriptionValue, currencyTypeValue;
-    private int amountValue, categoryIconValue;
+    private String titleValue, categoryValue, amountValue, modeValue, payeeValue, descriptionValue, currencyTypeValue;
+    private int categoryIconValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +43,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        //spinner wala stuff
+        //Category spinner wala stuff
         initList();//initialsing list
         category = (Spinner) findViewById(R.id.expenseCategory);
         categoryAdapter = new CategoryAdapter(this, categoryArrayList);//setting up adapter
@@ -68,15 +63,41 @@ public class AddExpenseActivity extends AppCompatActivity {
             }
         });
 
+        //Expense Mode spinner
         mode = (Spinner) findViewById(R.id.expenseMode);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.payment_mode_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mode.setAdapter(adapter2);
+        mode.setSelection(0);
+        mode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                modeValue = (String)parent.getItemAtPosition(position);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(AddExpenseActivity.this, "Mode can't be empty", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //Currency Type
         currencyType = (Spinner) findViewById(R.id.expenseCurrency);
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.currency_array, android.R.layout.simple_spinner_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         currencyType.setAdapter(adapter3);
+        currencyType.setSelection(0);
+        currencyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                currencyTypeValue = (String) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(AddExpenseActivity.this, "Currency Type can't be empty", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         //saving reference of database
@@ -85,28 +106,20 @@ public class AddExpenseActivity extends AppCompatActivity {
 
         //get User Id
         final String userID = firebaseAuth.getCurrentUser().getUid();
-        Query query = database.child("Users").equalTo(userID);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                System.out.println("qpr"+dataSnapshot.getValue());
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.v("DATABASE",databaseError.getMessage());
-            }
-        });
 
         save = (Button) findViewById(R.id.save_button);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getAllValues();
-                Transaction t = new Transaction(titleValue, categoryValue, categoryIconValue, String.valueOf(amountValue));
-                DatabaseReference child = database.child("Transactions/Expense");
-                child.push().setValue(t);
+                if(getAllValues()){
+                    Transaction t = new Transaction("Expense",userID,titleValue,categoryIconValue,categoryValue,amountValue,modeValue,payeeValue,descriptionValue);
+                    DatabaseReference child = database.child("Transactions");
+                    child.push().setValue(t);
+                    Toast.makeText(AddExpenseActivity.this, "Expense Added Successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                    startActivity(new Intent(AddExpenseActivity.this, PayrollActivity.class));
+                }
             }
         });
 
@@ -136,23 +149,25 @@ public class AddExpenseActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    private void getAllValues() {
-        titleValue = ((EditText) findViewById(R.id.expenseTitle)).getText().toString();
-        payeeValue = ((EditText) findViewById(R.id.expensePayee)).getText().toString();
+    private boolean getAllValues() {
+        boolean validity = true;
+        titleValue = ((EditText) findViewById(R.id.expenseTitle)).getText().toString().trim();
+        payeeValue = ((EditText) findViewById(R.id.expensePayee)).getText().toString().trim();
         modeValue = mode.getSelectedItem().toString();
         currencyTypeValue = currencyType.getSelectedItem().toString();
-        descriptionValue = ((EditText) findViewById(R.id.expenseDescription)).getText().toString();
+        descriptionValue = ((EditText) findViewById(R.id.expenseDescription)).getText().toString().trim();
         String temp = ((EditText) findViewById(R.id.expenseAmount)).getText().toString();
-        if (temp.isEmpty()) {
-            amountValue = 0;
+
+        if (temp.trim().isEmpty()) {
+            amountValue = "0";
         } else {
-            amountValue = Integer.parseInt(temp);
+            amountValue = temp;
         }
 
-        Log.v("abc", "titleValue " + titleValue);
-        Log.v("abc", "payeeValue " + payeeValue);
-        Log.v("abc", "modeValue " + modeValue);
-        Log.v("abc", "descriptionValue " + descriptionValue);
-        Log.v("abc", "amountValue " + amountValue);
+        if(titleValue.isEmpty() || payeeValue.isEmpty() || modeValue.isEmpty() || currencyTypeValue.isEmpty()){
+            Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+            validity = false;
+        }
+        return validity;
     }
 }

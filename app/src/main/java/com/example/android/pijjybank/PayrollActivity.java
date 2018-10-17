@@ -42,15 +42,18 @@ public class PayrollActivity extends AppCompatActivity {
     TransactionAdapter expenseAdapter;
     List<Transaction> transactionList;
     DatabaseReference UserRef,TransactionsRef;
-    User currentuser;
+    String navHeaderName;
     String userEmail;
     String id;
-    TextView emailSideBar;
+    TextView emailSideBar,usernameSideBar;
     NavigationView navigationView;
     View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_payroll);
+
         //enabling offline capabilities
         if (!calledAlready)
         {
@@ -58,18 +61,27 @@ public class PayrollActivity extends AppCompatActivity {
             calledAlready = true;
         }
 
+        //getting name of currently logged in user
         firebaseAuth = FirebaseAuth.getInstance();
-        id = firebaseAuth.getCurrentUser().getUid();
+        id = firebaseAuth.getCurrentUser().getUid().trim();
+
+        //Retriving Current Username
         UserRef = FirebaseDatabase.getInstance().getReference("Users");
         ValueEventListener nameListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren())
                 {
+//                    int count =0 ;
                     User current = snapshot.getValue(User.class);
                     String key = snapshot.getKey();
-                    if(key.equals(id))
-                        Toast.makeText(PayrollActivity.this,current.getName(),Toast.LENGTH_SHORT).show();
+                    navHeaderName = current.getName();
+//                    Log.v("asdf "+count,current.getName());
+                    if(key.equals(id)){
+                        navHeaderName = current.getName();
+//                        Toast.makeText(PayrollActivity.this, "Welcome "+currentUserName, Toast.LENGTH_SHORT).show();
+                    }
+//                    count++;
                 }
 
 
@@ -84,16 +96,16 @@ public class PayrollActivity extends AppCompatActivity {
 
         //Transactions retive
         transactionList = new ArrayList<>();
-//        transactionList.add(new Transaction("jash","jash",R.drawable.healthcare,123));
-
-        TransactionsRef = FirebaseDatabase.getInstance().getReference("Transactions/Expense");
+        TransactionsRef = FirebaseDatabase.getInstance().getReference("Transactions");
         ValueEventListener transactionListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren())
                 {
                     Transaction temp = snapshot.getValue(Transaction.class);
-                    transactionList.add(temp);
+                    if(temp.uid.equals(id)){
+                        transactionList.add(temp);
+                    }
                 }
                 Collections.reverse(transactionList);
                 expenseAdapter.notifyDataSetChanged();
@@ -107,22 +119,19 @@ public class PayrollActivity extends AppCompatActivity {
         TransactionsRef.addValueEventListener(transactionListener);
 
 
-        super.onCreate(savedInstanceState);
-
+        //Getting FirebaseAuth User
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
-        setContentView(R.layout.activity_payroll);
 
         //setting up the navigation view
         navigationView = (NavigationView)findViewById(R.id.nav_view);
         headerView = navigationView.getHeaderView(0);
-        if (user != null) {
+        if(user!=null) {
             // User is signed in
             userEmail = user.getEmail();
-            emailSideBar = (TextView)headerView.findViewById(R.id.userEmail);
-
+            emailSideBar = (TextView) headerView.findViewById(R.id.userEmail);
+            usernameSideBar = (TextView) headerView.findViewById(R.id.SidebarHeader);
         }
+        usernameSideBar.setText(navHeaderName);
         emailSideBar.setText(userEmail);
 
         Toolbar toolbar = findViewById(R.id.payroll_appbar);
@@ -154,7 +163,7 @@ public class PayrollActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        Collections.reverse(transactionList);
         expenseAdapter = new TransactionAdapter(this, (ArrayList<Transaction>) transactionList);
 
         recyclerView.setAdapter(expenseAdapter);
@@ -181,6 +190,7 @@ public class PayrollActivity extends AppCompatActivity {
             }
         });
 
+//        usernameSideBar.setText(currentUserName);
 
     }
 

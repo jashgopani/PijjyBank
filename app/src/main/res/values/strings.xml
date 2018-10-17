@@ -52,7 +52,7 @@
     <string-array name="payment_mode_array">
         <item>Cash</item>
         <item>Cheque</item>
-        <item>Online</item>
+        <item>Card</item>
         <item>Other</item>
     </string-array>
 </resources>

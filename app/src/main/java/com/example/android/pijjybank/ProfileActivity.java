@@ -47,7 +47,6 @@ public class ProfileActivity extends AppCompatActivity{
         //Firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
         appbarTitle = (TextView) findViewById(R.id.appbarTitle);
-        appbarTitle.setText("Profile");
         mDrawerLayout = findViewById(R.id.navd);
 
 
