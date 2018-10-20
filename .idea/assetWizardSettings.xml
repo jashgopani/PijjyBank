@@ -71,7 +71,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/opt/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_local_activity_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/opt/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_create_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -82,8 +82,8 @@
                         <option name="values">
                           <map>
                             <entry key="autoMirrored" value="true" />
-                            <entry key="color" value="ff9100" />
-                            <entry key="outputName" value="prize" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="edit" />
                             <entry key="sourceFile" value="$USER_HOME$" />
                           </map>
                         </option>
