@@ -41,11 +41,11 @@ public class PayrollActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TransactionAdapter expenseAdapter;
     List<Transaction> transactionList;
-    DatabaseReference UserRef,TransactionsRef;
+    DatabaseReference UserRef, TransactionsRef;
     String navHeaderName;
     String userEmail;
     String id;
-    TextView emailSideBar,usernameSideBar;
+    TextView emailSideBar, usernameSideBar;
     NavigationView navigationView;
     View headerView;
 
@@ -55,8 +55,7 @@ public class PayrollActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payroll);
 
         //enabling offline capabilities
-        if (!calledAlready)
-        {
+        if (!calledAlready) {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
             calledAlready = true;
         }
@@ -65,23 +64,34 @@ public class PayrollActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         id = firebaseAuth.getCurrentUser().getUid().trim();
 
+
+        //Getting FirebaseAuth User
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        //setting up the navigation view
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        headerView = navigationView.getHeaderView(0);
+        if (user != null) {
+            // User is signed in
+            userEmail = user.getEmail();
+            emailSideBar = (TextView) headerView.findViewById(R.id.userEmail);
+            usernameSideBar = (TextView) headerView.findViewById(R.id.SidebarHeader);
+        }
+        emailSideBar.setText(userEmail);
+
         //Retriving Current Username
         UserRef = FirebaseDatabase.getInstance().getReference("Users");
         ValueEventListener nameListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot:dataSnapshot.getChildren())
-                {
-//                    int count =0 ;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User current = snapshot.getValue(User.class);
                     String key = snapshot.getKey();
                     navHeaderName = current.getName();
-//                    Log.v("asdf "+count,current.getName());
-                    if(key.equals(id)){
+                    if (key.equals(id)) {
                         navHeaderName = current.getName();
-//                        Toast.makeText(PayrollActivity.this, "Welcome "+currentUserName, Toast.LENGTH_SHORT).show();
+                        usernameSideBar.setText(navHeaderName);
                     }
-//                    count++;
                 }
 
 
@@ -100,10 +110,9 @@ public class PayrollActivity extends AppCompatActivity {
         ValueEventListener transactionListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot:dataSnapshot.getChildren())
-                {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Transaction temp = snapshot.getValue(Transaction.class);
-                    if(temp.uid.equals(id)){
+                    if (temp.uid.equals(id)) {
                         transactionList.add(temp);
                     }
                 }
@@ -119,20 +128,6 @@ public class PayrollActivity extends AppCompatActivity {
         TransactionsRef.addValueEventListener(transactionListener);
 
 
-        //Getting FirebaseAuth User
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        //setting up the navigation view
-        navigationView = (NavigationView)findViewById(R.id.nav_view);
-        headerView = navigationView.getHeaderView(0);
-        if(user!=null) {
-            // User is signed in
-            userEmail = user.getEmail();
-            emailSideBar = (TextView) headerView.findViewById(R.id.userEmail);
-            usernameSideBar = (TextView) headerView.findViewById(R.id.SidebarHeader);
-        }
-        usernameSideBar.setText(navHeaderName);
-        emailSideBar.setText(userEmail);
 
         Toolbar toolbar = findViewById(R.id.payroll_appbar);
         setSupportActionBar(toolbar);
@@ -160,7 +155,7 @@ public class PayrollActivity extends AppCompatActivity {
         });
 
 
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Collections.reverse(transactionList);
@@ -168,17 +163,16 @@ public class PayrollActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(expenseAdapter);
 
-
         //Floating Action Button Event Listeners
 
-        addExpenseBtn = (FloatingActionButton)findViewById(R.id.addExpenseBtn);
-        addIncomeBtn =  (FloatingActionButton)findViewById(R.id.addIncomeBtn);
+        addExpenseBtn = (FloatingActionButton) findViewById(R.id.addExpenseBtn);
+        addIncomeBtn = (FloatingActionButton) findViewById(R.id.addIncomeBtn);
 
         addExpenseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(PayrollActivity.this,AddExpenseActivity.class));
+                startActivity(new Intent(PayrollActivity.this, AddExpenseActivity.class));
             }
         });
 
@@ -186,7 +180,7 @@ public class PayrollActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(PayrollActivity.this,AddIncomeActivity.class));
+                startActivity(new Intent(PayrollActivity.this, AddIncomeActivity.class));
             }
         });
 
@@ -209,12 +203,12 @@ public class PayrollActivity extends AppCompatActivity {
                 return true;
 
             case R.id.Dashboard:
-                startActivity(new Intent(PayrollActivity.this,dashboard.class));
+                startActivity(new Intent(PayrollActivity.this, dashboard.class));
                 return true;
 
             case R.id.Profile:
 //                finish();
-                startActivity(new Intent(PayrollActivity.this,ProfileActivity.class));
+                startActivity(new Intent(PayrollActivity.this, ProfileActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -83,7 +83,7 @@ public class AddIncomeActivity extends AppCompatActivity {
 
 
         currencyType = (Spinner) findViewById(R.id.incomeCurrency);
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,R.array.incomeCategory_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,R.array.currency_array, android.R.layout.simple_spinner_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         currencyType.setAdapter(adapter3);
         currencyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

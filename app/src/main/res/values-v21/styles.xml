@@ -12,8 +12,15 @@
         <item name="cardViewStyle">@style/CardView.Light</item>
     </style>
 
+    <!--Custom Dialog Theme-->
+    <style name="CustomDialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:backgroundTint">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@color/colorSecondary</item>
+    </style>
 
     <style name="CustomAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="dialogTheme">@style/CustomDialogTheme</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
