@@ -9,45 +9,71 @@
     android:fitsSystemWindows="true">
 
     <!--Summaries-->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/payrollCV"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".PayrollActivity">
-
-        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/payrollCV"
             android:layout_width="match_parent"
-            android:id="@+id/dashboard_appbar"
-            android:layout_height="?attr/actionBarSize"
-            app:title="Dashboard"
-            app:titleTextColor="#ffffff"
-            android:theme="@style/customToolbar"
-            app:popupTheme="@style/customPopup"
-            app:theme="@style/customToolbar"
-            android:drawSelectorOnTop="true"
-            tools:ignore="InvalidId">
-        </android.support.v7.widget.Toolbar>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".PayrollActivity">
 
-        <android.support.v7.widget.CardView
-            android:layout_margin="10dp"
-            app:cardCornerRadius="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
+            <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:id="@+id/dashboard_appbar"
+                android:layout_height="?attr/actionBarSize"
+                app:title="Dashboard"
+                app:titleTextColor="#ffffff"
+                android:theme="@style/customToolbar"
+                app:popupTheme="@style/customPopup"
+                app:theme="@style/customToolbar"
+                android:drawSelectorOnTop="true"
+                tools:ignore="InvalidId">
+            </android.support.v7.widget.Toolbar>
+
+            <android.support.v7.widget.CardView
+                android:layout_margin="10dp"
+                app:cardCornerRadius="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <com.github.mikephil.charting.charts.PieChart
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/pieChart">
-                </com.github.mikephil.charting.charts.PieChart>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
+                    android:layout_height="match_parent">
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:layout_gravity="center"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"
+                        android:id="@+id/expensePieChart">
+                    </com.github.mikephil.charting.charts.PieChart>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_margin="10dp"
+                app:cardCornerRadius="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:layout_gravity="center"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"
+                        android:id="@+id/incomePieChart">
+                    </com.github.mikephil.charting.charts.PieChart>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
 
     <!--Nav Drawer-->
     <android.support.design.widget.NavigationView xmlns:android="http://schemas.android.com/apk/res/android"

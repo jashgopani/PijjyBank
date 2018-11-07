@@ -35,6 +35,22 @@ public class Transaction {
         Log.i("default","constructor");
     }
 
+    public String getMode() {
+        return mode;
+    }
+
+    public String getParty() {
+        return party;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
     public String getTitle(){
         return title;
     }

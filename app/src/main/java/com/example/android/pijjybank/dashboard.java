@@ -1,6 +1,7 @@
 package com.example.android.pijjybank;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -9,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,10 +48,11 @@ public class dashboard extends AppCompatActivity {
     String id;
     DatabaseReference TransactionsRef;
     List<Transaction> transactionList;
-    PieChart pieChart;
+    PieChart expensePieChart,incomePieChart;
     String [] expenseCategories = {"Food","Travel","Shopping","HealthCare","Entertainment","Fees","Other"};
     String [] incomeCategories = {"Salary","Gift","Depreciation","Cashback","Prize","Other"};
     float expenseSum[];
+    float incomeSum[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,9 +118,16 @@ public class dashboard extends AppCompatActivity {
         };
         UserRef.addValueEventListener(nameListener);
 
-        //Transactions retive
+        //PieChart Stuff
+        //set properties of pie chart
+        expensePieChart = (PieChart)findViewById(R.id.expensePieChart);
+        incomePieChart = (PieChart)findViewById(R.id.incomePieChart);
+
+
+        //Transactions retrieve
         transactionList = new ArrayList<>();
         expenseSum = new float[7];
+        incomeSum = new float[6];
         TransactionsRef = FirebaseDatabase.getInstance().getReference("Transactions");
         ValueEventListener transactionListener = new ValueEventListener() {
             @Override
@@ -129,6 +137,8 @@ public class dashboard extends AppCompatActivity {
                     if (temp.uid.equals(id)) {
                         transactionList.add(temp);
                         categorizeExpenses(temp);
+                        drawPieChart(expensePieChart,"Expense\nSummary",expenseCategories,expenseSum,"Expense Categories",ColorTemplate.MATERIAL_COLORS);
+                        drawPieChart(incomePieChart,"Income\nSummary",incomeCategories,incomeSum,"Income Categories",ColorTemplate.PASTEL_COLORS);
                     }
                 }
             }
@@ -140,42 +150,9 @@ public class dashboard extends AppCompatActivity {
         };
         TransactionsRef.addValueEventListener(transactionListener);
 
-        //PieChart Stuff
-        pieChart = (PieChart)findViewById(R.id.pieChart);
-        Description description = new Description();
-        description.setText("Category Wise Distributon");
-        pieChart.setDescription(description);
-        pieChart.setRotationEnabled(true);
-        pieChart.setHoleRadius(10f);
-        pieChart.setTransparentCircleAlpha(0);
-        pieChart.setDrawEntryLabels(true);
-
-        addDataSet();
     }
 
-    private void addDataSet(){
-        ArrayList<PieEntry> yEntrys= new ArrayList<PieEntry>();//values
-        ArrayList<String> xEntrys = new ArrayList<String>();//Category Names
 
-        for(int i=0;i<expenseCategories.length;i++){
-            PieEntry ptemp = new PieEntry(i,expenseCategories[i]);
-            yEntrys.add(ptemp);
-        }
-
-//        for(int i=0;i<expenseCategories.length;i++){
-//            xEntrys.add(Float.toString(expenseSum[i]));
-//            Log.v("asdfgh","i > "+Float.toString(expenseSum[i]));
-//        }
-
-        PieDataSet pieDataSet = new PieDataSet(yEntrys,"Categories");
-        pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(12);
-
-        PieData pieData = new PieData(pieDataSet);
-        pieChart.setData(pieData);
-        pieChart.invalidate();
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -196,6 +173,7 @@ public class dashboard extends AppCompatActivity {
                 return true;
 
             case R.id.Profile:
+                startActivity(new Intent(dashboard.this,ProfileActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -211,27 +189,78 @@ public class dashboard extends AppCompatActivity {
 
     public void categorizeExpenses(Transaction t){
         float val = Integer.parseInt(t.getAmount());
-        Log.v("asdfgh",Float.toString(val));
-        if(t.type=="Expense"){
-            if(t.categoryIcon==R.drawable.food){
-                expenseSum[0] = expenseSum[0] + val;
-                Log.v("expenseSum",Float.toString(expenseSum[0]));
-            }else if(t.category=="Travel"){
+//        Toast.makeText(this, t.getType(), Toast.LENGTH_SHORT).show();
+        String type = t.getType();
+        String category = t.getCategory();
+        if(type.compareTo("Expense") == 0){
+            if(category.compareTo(expenseCategories[0]) == 0){
+                expenseSum[0] += val;
+            }else if(category.compareTo(expenseCategories[1]) == 0){
                 expenseSum[1] += val;
-            }else if(t.category=="Shopping"){
+            }else if(category.compareTo(expenseCategories[2]) == 0){
                 expenseSum[2] += val;
-            }else if(t.category=="HealthCare"){
+            }else if(category.compareTo(expenseCategories[3]) == 0){
                 expenseSum[3] += val;
-            }else if(t.category=="Entertainment"){
+            }else if(category.compareTo(expenseCategories[4]) == 0){
                 expenseSum[4] += val;
-            }else if(t.category=="Fees"){
+            }else if(category.compareTo(expenseCategories[5]) == 0){
                 expenseSum[5] += val;
-            }else if(t.category=="Other"){
+            }else if(category.compareTo(expenseCategories[6]) == 0){
                 expenseSum[6] += val;
+            }else{
+                Toast.makeText(this, "Some other error", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+//            Toast.makeText(this, "Income", Toast.LENGTH_SHORT).show();
+            if(category.compareTo(incomeCategories[0]) == 0){
+                incomeSum[0] += val;
+            }else if(category.compareTo(incomeCategories[1]) == 0){
+                incomeSum[1] += val;
+            }else if(category.compareTo(incomeCategories[2]) == 0){
+                incomeSum[2] += val;
+            }else if(category.compareTo(incomeCategories[3]) == 0){
+                incomeSum[3] += val;
+            }else if(category.compareTo(incomeCategories[4]) == 0){
+                incomeSum[4] += val;
+            }else if(category.compareTo(incomeCategories[5]) == 0){
+                incomeSum[5] += val;
             }else{
                 Toast.makeText(this, "Some other error", Toast.LENGTH_SHORT).show();
             }
         }
 
+    }
+
+    public void drawPieChart(PieChart p ,String chartTitle, String[] categoryNames,float[] categoryValues,String legendLabel,int[] colorTemplate){
+        p.setUsePercentValues(false);
+        p.getDescription().setEnabled(false);
+        p.setDragDecelerationFrictionCoef(0.95f);
+        p.setDrawHoleEnabled(true);
+        p.setHoleColor(Color.WHITE);
+        p.setTransparentCircleRadius(50f);
+
+        //Create Entries for pie chart
+        ArrayList<PieEntry> yValues = new ArrayList<>();
+        for(int i=0;i<categoryValues.length;i++){
+            if(categoryValues[i]>0)
+                yValues.add(new PieEntry(categoryValues[i],categoryNames[i]));
+//            Toast.makeText(this, expenseSum[i]+" / "+expenseCategories[i], Toast.LENGTH_SHORT).show();
+        }
+
+        //Generate a dataset using those entries
+        PieDataSet dataSet = new PieDataSet(yValues,legendLabel);
+        dataSet.setSelectionShift(10f);
+        dataSet.setColors(colorTemplate);
+        dataSet.setValueLineColor(Color.YELLOW);
+
+        //set that dataset as the data source of the piechart
+        PieData data = new PieData(dataSet);
+        data.setValueTextSize(15f);
+        data.setHighlightEnabled(true);
+        data.setValueTextColor(Color.WHITE);
+        p.setCenterText(chartTitle);
+        p.setDrawEntryLabels(false);
+        p.setData(data);
+        p.setEntryLabelColor(Color.WHITE);
     }
 }
