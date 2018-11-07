@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -137,8 +138,8 @@ public class dashboard extends AppCompatActivity {
                     if (temp.uid.equals(id)) {
                         transactionList.add(temp);
                         categorizeExpenses(temp);
-                        drawPieChart(expensePieChart,"Expense\nSummary",expenseCategories,expenseSum,"Expense Categories",ColorTemplate.MATERIAL_COLORS);
-                        drawPieChart(incomePieChart,"Income\nSummary",incomeCategories,incomeSum,"Income Categories",ColorTemplate.PASTEL_COLORS);
+                        drawPieChart(expensePieChart,"Expense\nSummary",expenseCategories,expenseSum,"Expense Categories",ColorTemplate.COLORFUL_COLORS);
+                        drawPieChart(incomePieChart,"Income\nSummary",incomeCategories,incomeSum,"Income Categories",ColorTemplate.MATERIAL_COLORS);
                     }
                 }
             }
@@ -238,6 +239,7 @@ public class dashboard extends AppCompatActivity {
         p.setDrawHoleEnabled(true);
         p.setHoleColor(Color.WHITE);
         p.setTransparentCircleRadius(50f);
+        p.setClickable(true);
 
         //Create Entries for pie chart
         ArrayList<PieEntry> yValues = new ArrayList<>();
@@ -262,5 +264,8 @@ public class dashboard extends AppCompatActivity {
         p.setDrawEntryLabels(false);
         p.setData(data);
         p.setEntryLabelColor(Color.WHITE);
+
+        p.getLegend().setWordWrapEnabled(true);
+        p.getLegend().setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
     }
 }
