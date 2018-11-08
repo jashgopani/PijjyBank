@@ -66,7 +66,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             if (task.isSuccessful()) { //Add username to the database
                                 final String id = firebaseAuth.getCurrentUser().getUid();
                                 db = FirebaseDatabase.getInstance().getReference("Users/");
-                                db.child(id).setValue(new User(name));
+                                db.child(id).setValue(new User(name,0));
                                 Log.v("Jash","User id :"+id);
                                 /*
                                 * {

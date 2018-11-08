@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +17,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     private Context mCtx;
     private List<Transaction> transactionList;
+    private OnItemClickListener mListener;
 
     public TransactionAdapter(Context mCtx, ArrayList<Transaction> transactionList) {
         this.mCtx = mCtx;
@@ -47,19 +47,28 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.dateTextView.setText(transaction.getDate());
         holder.amountTextView.setText(transaction.getAmount());
 
-        final String x = holder.titleTextView.getText().toString();
-        holder.itemCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mCtx, "Clicked "+x, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        final String x = holder.titleTextView.getText().toString();
+//        holder.itemCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(mCtx, "Clicked "+x, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 
     @Override
     public int getItemCount() {
         return transactionList.size();
+    }
+
+    //Interface for click listener on single item
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
     }
 
     class ExpenseViewHolder extends RecyclerView.ViewHolder {
@@ -76,6 +85,18 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             titleTextView = itemView.findViewById(R.id.title_text_view);
             amountTextView = itemView.findViewById(R.id.amount_text_view);
             dateTextView = itemView.findViewById(R.id.date_text_view);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mListener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            mListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 

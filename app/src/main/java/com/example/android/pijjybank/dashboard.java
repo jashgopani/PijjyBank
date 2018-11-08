@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.philjay.valuebar.ValueBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,9 @@ public class dashboard extends AppCompatActivity {
     View headerView;
     Button resetPassword;
     TextView usernameSideBar;
+    ValueBar valueBar;
     DatabaseReference UserRef;
+    int userbudget;
     String navHeaderName;
     String id;
     DatabaseReference TransactionsRef;
@@ -54,6 +57,8 @@ public class dashboard extends AppCompatActivity {
     String [] incomeCategories = {"Salary","Gift","Depreciation","Cashback","Prize","Other"};
     float expenseSum[];
     float incomeSum[];
+    TextView totalExpenses,totalIncomes,budgetAmount,totalExpensesAmount,totalIncomeAmount,amountLeft;
+    int expenseCount,incomeCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,15 @@ public class dashboard extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24px);
+
+
+        //Initializing TextViews
+        totalExpenses = (TextView)findViewById(R.id.totalExpenses);
+        totalIncomes = (TextView)findViewById(R.id.totalIncome);
+        budgetAmount = (TextView)findViewById(R.id.budget);
+        totalExpensesAmount = (TextView)findViewById(R.id.totalExpenseAmount);
+        totalIncomeAmount  = (TextView)findViewById(R.id.totalIncomeAmount);
+        amountLeft = (TextView)findViewById(R.id.amountLeft);
 
 
         //Firebase auth
@@ -108,6 +122,8 @@ public class dashboard extends AppCompatActivity {
                     if (key.equals(id)) {
                         navHeaderName = current.getName();
                         usernameSideBar.setText(navHeaderName);
+                        userbudget = current.getBudget();
+                        budgetAmount.setText(Integer.toString(userbudget));
                     }
                 }
             }
@@ -118,6 +134,11 @@ public class dashboard extends AppCompatActivity {
             }
         };
         UserRef.addValueEventListener(nameListener);
+
+        //For value Bar
+        valueBar = (ValueBar) findViewById(R.id.valueBar);
+        valueBar.setTouchEnabled(false);
+
 
         //PieChart Stuff
         //set properties of pie chart
@@ -137,6 +158,7 @@ public class dashboard extends AppCompatActivity {
                     Transaction temp = snapshot.getValue(Transaction.class);
                     if (temp.uid.equals(id)) {
                         transactionList.add(temp);
+                        setCounts(transactionList);
                         categorizeExpenses(temp);
                         drawPieChart(expensePieChart,"Expense\nSummary",expenseCategories,expenseSum,"Expense Categories",ColorTemplate.COLORFUL_COLORS);
                         drawPieChart(incomePieChart,"Income\nSummary",incomeCategories,incomeSum,"Income Categories",ColorTemplate.MATERIAL_COLORS);
@@ -150,6 +172,7 @@ public class dashboard extends AppCompatActivity {
             }
         };
         TransactionsRef.addValueEventListener(transactionListener);
+
 
     }
 
@@ -194,6 +217,7 @@ public class dashboard extends AppCompatActivity {
         String type = t.getType();
         String category = t.getCategory();
         if(type.compareTo("Expense") == 0){
+            expenseCount += 1;//increment Expense Count
             if(category.compareTo(expenseCategories[0]) == 0){
                 expenseSum[0] += val;
             }else if(category.compareTo(expenseCategories[1]) == 0){
@@ -230,42 +254,88 @@ public class dashboard extends AppCompatActivity {
             }
         }
 
+        drawValueBar(sumOfArray(expenseSum) - sumOfArray(incomeSum));
+        totalExpensesAmount.setText(Float.toString(sumOfArray(expenseSum)));
+        totalIncomeAmount.setText(Float.toString(sumOfArray(incomeSum)));
+        float finalAmt = userbudget - sumOfArray(expenseSum) + sumOfArray(incomeSum);
+        amountLeft.setText(Float.toString(finalAmt));
+
     }
 
     public void drawPieChart(PieChart p ,String chartTitle, String[] categoryNames,float[] categoryValues,String legendLabel,int[] colorTemplate){
-        p.setUsePercentValues(false);
+        p.setUsePercentValues(true);
         p.getDescription().setEnabled(false);
         p.setDragDecelerationFrictionCoef(0.95f);
         p.setDrawHoleEnabled(true);
         p.setHoleColor(Color.WHITE);
         p.setTransparentCircleRadius(50f);
         p.setClickable(true);
+        p.setTransparentCircleAlpha(0);
 
         //Create Entries for pie chart
         ArrayList<PieEntry> yValues = new ArrayList<>();
         for(int i=0;i<categoryValues.length;i++){
             if(categoryValues[i]>0)
                 yValues.add(new PieEntry(categoryValues[i],categoryNames[i]));
-//            Toast.makeText(this, expenseSum[i]+" / "+expenseCategories[i], Toast.LENGTH_SHORT).show();
         }
 
         //Generate a dataset using those entries
         PieDataSet dataSet = new PieDataSet(yValues,legendLabel);
         dataSet.setSelectionShift(10f);
         dataSet.setColors(colorTemplate);
-        dataSet.setValueLineColor(Color.YELLOW);
+        dataSet.setSliceSpace(3f);
+        dataSet.notifyDataSetChanged();
 
         //set that dataset as the data source of the piechart
         PieData data = new PieData(dataSet);
         data.setValueTextSize(15f);
         data.setHighlightEnabled(true);
         data.setValueTextColor(Color.WHITE);
+        p.setData(data);
+
         p.setCenterText(chartTitle);
         p.setDrawEntryLabels(false);
-        p.setData(data);
         p.setEntryLabelColor(Color.WHITE);
 
         p.getLegend().setWordWrapEnabled(true);
         p.getLegend().setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+
+        p.invalidate();
+        p.notifyDataSetChanged();
+    }
+
+    public void drawValueBar(float sum){
+        float percent = (sum/userbudget) * 100;
+        valueBar.setMinMax(0,userbudget);
+        valueBar.animate(0,sum,1500);
+        valueBar.setInterval(0f);
+        valueBar.setDrawBorder(false);
+        valueBar.setColor(Color.rgb(255,0,0));
+        valueBar.setValue(sum);
+        valueBar.setValueTextSize(10f);
+        valueBar.setMinMaxTextSize(10f);
+        valueBar.invalidate();
+
+    }
+
+    private float sumOfArray(float[] array){
+        float sum = 0;
+        for(int i=0;i < array.length;i++){
+            sum = sum + array[i];
+        }
+        return sum;
+    }
+
+    private void setCounts(List<Transaction> mtransactionList){
+
+        for(Transaction t : mtransactionList){
+            if(t.getCategory().compareTo("Expense") == 0){
+                Toast.makeText(this, "Expense - "+t.getType(), Toast.LENGTH_SHORT).show();
+                expenseCount++;
+            }
+        }
+        totalExpenses.setText(Integer.toString(expenseCount));
+        incomeCount = mtransactionList.size() - expenseCount;
+        totalIncomes.setText(Integer.toString(incomeCount));
     }
 }

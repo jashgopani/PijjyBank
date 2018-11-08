@@ -48,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity{
     DatabaseReference UserRef;
     String navHeaderName;
     String id;
-    EditText editUsername,editEmail;
+    EditText editUsername,editEmail,editBudget;
 
 
 
@@ -66,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity{
 
         final TextView usernametv = (TextView)findViewById(R.id.usernametv);
         final TextView emailtv = (TextView)findViewById(R.id.emailtv);
+        final TextView budgettv = (TextView)findViewById(R.id.budgettv);
 
         //Firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
@@ -109,6 +110,7 @@ public class ProfileActivity extends AppCompatActivity{
                         usernameSideBar.setText(navHeaderName);
                         usernametv.setText(navHeaderName);
                         emailtv.setText(firebaseAuth.getCurrentUser().getEmail());
+                        budgettv.setText(Integer.toString(current.getBudget()));
                     }
                 }
             }
@@ -157,10 +159,17 @@ public class ProfileActivity extends AppCompatActivity{
         editUsername = (EditText)findViewById(R.id.editusernametv);
         editUsername.setVisibility(View.GONE);
         editUsername.setText(firebaseAuth.getCurrentUser().getEmail());
+
+        editBudget = (EditText)findViewById(R.id.editbudgettv);
+        editBudget.setVisibility(View.GONE);
+
         editEmail = (EditText)findViewById(R.id.editemailtv);
         editEmail.setVisibility(View.GONE);
+
         final ImageView editusernameicon = (ImageView)findViewById(R.id.editusernameicon);
         final ImageView editemailicon = (ImageView)findViewById(R.id.editemailicon);
+        final ImageView editBudgeticon = (ImageView)findViewById(R.id.editbudgeticon);
+
         editusernameicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +184,13 @@ public class ProfileActivity extends AppCompatActivity{
             }
         });
 
+        editBudgeticon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateBudget(budgettv,editBudget,editBudgeticon);
+            }
+        });
+
 
     }
 
@@ -183,6 +199,7 @@ public class ProfileActivity extends AppCompatActivity{
             t1.setVisibility(View.GONE);
             icon.setImageResource(R.drawable.done_icon);
             t2.setVisibility(View.VISIBLE);//showing edittext
+            t2.setText(t1.getText());
         }else{//updating the details
             String newName = t2.getText().toString().trim();
             DatabaseReference temp = FirebaseDatabase.getInstance().getReference("Users/"+id);
@@ -247,6 +264,22 @@ public class ProfileActivity extends AppCompatActivity{
             });
             builder.show();
 
+        }
+    }
+
+    public void updateBudget(TextView t1,EditText t2,ImageView icon){
+        if(t1.getVisibility() == View.VISIBLE){//enter into editing mode
+            t1.setVisibility(View.GONE);
+            icon.setImageResource(R.drawable.done_icon);
+            t2.setVisibility(View.VISIBLE);//showing edittext
+            t2.setText(t1.getText());
+        }else{//updating the details
+            int newbudget = Integer.parseInt(t2.getText().toString().trim());
+            DatabaseReference temp = FirebaseDatabase.getInstance().getReference("Users/"+id);
+            temp.setValue(new User(navHeaderName,newbudget));
+            t1.setVisibility(View.VISIBLE);
+            icon.setImageResource(R.drawable.edit_icon);
+            t2.setVisibility(View.GONE);
         }
     }
 

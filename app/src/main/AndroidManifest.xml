@@ -33,7 +33,8 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".AddExpenseActivity" />
         <activity android:name=".AddIncomeActivity" />
-        <activity android:name=".dashboard"></activity>
+        <activity android:name=".dashboard" />
+        <activity android:name=".OpenTransaction"></activity>
     </application>
 
 </manifest>

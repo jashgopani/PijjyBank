@@ -38,7 +38,7 @@ public class AddIncomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_income);
 
-        Toolbar toolbar = findViewById(R.id.addexpense_appbar);
+        Toolbar toolbar = findViewById(R.id.addincome_appbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

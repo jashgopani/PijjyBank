@@ -1,5 +1,8 @@
 package com.example.android.pijjybank;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import java.text.DateFormat;
@@ -13,6 +16,8 @@ public class Transaction {
     String amount;
     String mode,party,description;
     String type;//Expense or Income
+    String date;
+    int categoryIcon;
 
     public Transaction(String type,String uid, String title, int categoryIcon,String category, String amount, String mode, String party, String description) {
         this.type = type;
@@ -28,8 +33,6 @@ public class Transaction {
         this.categoryIcon = categoryIcon;
     }
 
-    int categoryIcon;
-    String date;
 
     public Transaction(){
         Log.i("default","constructor");
@@ -69,5 +72,30 @@ public class Transaction {
 
     public int getCategoryIcon() {
         return categoryIcon;
+    }
+
+    public Intent openTransaction(Context context){
+
+//        String uid;
+//        String title;
+//        String category;
+//        String amount;
+//        String mode,party,description;
+//        String type;//Expense or Income
+
+        Intent intent = new Intent(context,OpenTransaction.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("uid",uid);
+        bundle.putString("title",title);
+        bundle.putString("category",category);
+        bundle.putString("amount",amount);
+        bundle.putString("mode",mode);
+        bundle.putString("party",party);
+        bundle.putString("description",description);
+        bundle.putString("type",type);
+        bundle.putString("date",date);
+        bundle.putInt("categoryIcon",categoryIcon);
+        intent.putExtras(bundle);
+        return intent;
     }
 }
