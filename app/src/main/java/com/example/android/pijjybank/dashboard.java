@@ -260,7 +260,7 @@ public class dashboard extends AppCompatActivity {
             }
         }
 
-        drawValueBar(sumOfArray(expenseSum) - sumOfArray(incomeSum));
+        drawValueBar(sumOfArray(expenseSum));
         totalExpensesAmount.setText(Float.toString(sumOfArray(expenseSum)));
         totalIncomeAmount.setText(Float.toString(sumOfArray(incomeSum)));
         float finalAmt = userbudget - sumOfArray(expenseSum) + sumOfArray(incomeSum);
@@ -311,13 +311,10 @@ public class dashboard extends AppCompatActivity {
     }
 
     public void drawValueBar(float sum) {
-        if(sum > 0){
-            valueBar.animate(0, sum, 1500);
-            valueBar.setValue(sum);
-        }else{
-            valueBar.setValue(0);
-        }
-        valueBar.setMinMax(0, userbudget);
+        float percent = (Float)(sum/userbudget)*100;
+        valueBar.animate(0, percent, 1500);
+        valueBar.setValue(percent);
+        valueBar.setMinMax(0, 100);
         valueBar.setInterval(0f);
         valueBar.setDrawBorder(false);
         valueBar.setColor(Color.rgb(255, 0, 0));
