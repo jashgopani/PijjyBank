@@ -264,6 +264,8 @@ public class dashboard extends AppCompatActivity {
         totalExpensesAmount.setText(Float.toString(sumOfArray(expenseSum)));
         totalIncomeAmount.setText(Float.toString(sumOfArray(incomeSum)));
         float finalAmt = userbudget - sumOfArray(expenseSum) + sumOfArray(incomeSum);
+        if(finalAmt <= 0)
+            finalAmt = 0;
         amountLeft.setText(Float.toString(finalAmt));
 
     }
