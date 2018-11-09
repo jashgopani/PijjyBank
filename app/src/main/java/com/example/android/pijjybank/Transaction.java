@@ -16,7 +16,13 @@ public class Transaction {
     String amount;
     String mode,party,description;
     String type;//Expense or Income
+
     String date;
+
+    public String getUid() {
+        return uid;
+    }
+
     int categoryIcon;
 
     public Transaction(String type,String uid, String title, int categoryIcon,String category, String amount, String mode, String party, String description) {
@@ -33,6 +39,9 @@ public class Transaction {
         this.categoryIcon = categoryIcon;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public Transaction(){
         Log.i("default","constructor");

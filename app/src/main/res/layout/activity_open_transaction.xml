@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,10 +18,11 @@
         android:theme="@style/customToolbar"
         app:popupTheme="@style/customPopup"
         app:theme="@style/customToolbar"
-        app:title="Edit Transaction"
+        app:title="View Transaction"
         app:titleTextColor="#ffffff"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
+
 
     <android.support.v7.widget.CardView
         android:id="@+id/displayTransactionCardView"
@@ -33,15 +35,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
 
             <!--Display Title-->
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -54,19 +56,19 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_marginRight="10dp"
                     android:id="@+id/displayTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     tools:text="Expense" />
             </LinearLayout>
 
             <!--Display Type-->
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -79,19 +81,19 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_marginRight="10dp"
                     android:id="@+id/displayType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     tools:text="Expense" />
             </LinearLayout>
 
             <!--Display category-->
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -105,18 +107,18 @@
 
                 <TextView
                     android:id="@+id/displayCategory"
-                    android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     tools:text="Food" />
             </LinearLayout>
 
             <!--Display Amount-->
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -130,18 +132,18 @@
 
                 <TextView
                     android:id="@+id/displayAmount"
-                    android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     tools:text="400 Rs" />
             </LinearLayout>
 
             <!--Display Mode-->
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -155,18 +157,18 @@
 
                 <TextView
                     android:id="@+id/displayMode"
-                    android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     tools:text="Cash" />
             </LinearLayout>
 
             <!--Display Party-->
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -180,18 +182,18 @@
 
                 <TextView
                     android:id="@+id/displayParty"
-                    android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     tools:text="Shopkeeper" />
             </LinearLayout>
 
             <!--Display Date-->
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -205,18 +207,18 @@
 
                 <TextView
                     android:id="@+id/displayDate"
-                    android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     tools:text="24 Oct,2018" />
             </LinearLayout>
 
             <!--Display Description-->
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="4"
                 android:orientation="horizontal">
 
@@ -229,221 +231,83 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_marginRight="10dp"
                     android:id="@+id/displayDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:text="No Description Provided"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="italic"
-                    android:text="No Description Provided" />
-            </LinearLayout>
-
-            <!--Buttons-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/editButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/blue_button"
-                    android:text="Edit"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white" />
-
-                <Button
-                    android:id="@+id/deleteButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/red_button"
-                    android:text="Delete"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-    <!--Edit Mode Layout-->
-
-    <!--main outer layout-->
-    <LinearLayout
-        android:id="@+id/editTransactionLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/editTransactionTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
-            android:hint="Expense Title"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="82dp" />
-
-        <Spinner
-            android:id="@+id/editTransactionCategory"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:paddingTop="10dp"></Spinner>
-
-        <!--amount and payee wala layout-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="Amount" />
-
-                <EditText
-                    android:id="@+id/editTransactionAmount"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:hint="XXX" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="To" />
-
-                <EditText
-                    android:id="@+id/editTransactionParty"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="@color/colorPrimary" />
+                    android:textStyle="italic" />
             </LinearLayout>
 
         </LinearLayout>
 
-
-        <!--mode,currency wala layout-->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.github.clans.fab.FloatingActionMenu
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:orientation="horizontal">
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="right|bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            fab:menu_animationDelayPerItem="50"
+            fab:menu_backgroundColor="@android:color/transparent"
+            fab:menu_buttonSpacing="0dp"
+            fab:menu_colorNormal="@color/colorPrimary"
+            fab:menu_colorPressed="@color/colorPrimaryDark"
+            fab:menu_colorRipple="#99FFFFFF"
+            fab:menu_fab_label="Edit Transaction"
+            fab:menu_fab_size="normal"
+            fab:menu_icon="@drawable/menu"
+            fab:menu_labels_colorNormal="#333333"
+            fab:menu_labels_colorPressed="#444444"
+            fab:menu_labels_colorRipple="#66FFFFFF"
+            fab:menu_labels_cornerRadius="3dp"
+            fab:menu_labels_ellipsize="none"
+            fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+            fab:menu_labels_margin="0dp"
+            fab:menu_labels_maxLines="-1"
+            fab:menu_labels_padding="8dp"
+            fab:menu_labels_paddingBottom="4dp"
+            fab:menu_labels_paddingLeft="8dp"
+            fab:menu_labels_paddingRight="8dp"
+            fab:menu_labels_paddingTop="4dp"
+            fab:menu_labels_position="left"
+            fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+            fab:menu_labels_showShadow="true"
+            fab:menu_labels_singleLine="true"
+            fab:menu_labels_textColor="#FFFFFF"
+            fab:menu_labels_textSize="14sp"
+            fab:menu_openDirection="up"
+            fab:menu_shadowColor="#66000000"
+            fab:menu_shadowRadius="4dp"
+            fab:menu_shadowXOffset="1dp"
+            fab:menu_shadowYOffset="3dp"
+            fab:menu_showShadow="true">
 
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="Mode" />
-
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/editTransactionMode"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:entries="@array/payment_mode_array" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Currency Type" />
-
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/editTransactionCurrency"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:entries="@array/currency_array" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Description" />
-
-        <EditText
-            android:id="@+id/editTransactionDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
-            android:inputType="text|textMultiLine" />
-
-        <!--Buttons-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:gravity="bottom"
-                android:layout_width="match_parent"
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/deleteButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:src="@drawable/delete"
+                fab:fab_colorNormal="#ff0000"
+                fab:fab_colorPressed="#d50000"
+                fab:fab_label="Delete Transaction"
+                fab:fab_size="mini" />
 
-                <Button
-                    android:id="@+id/saveEditsButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/blue_button"
-                    android:text="Save Edits"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white" />
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/editButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/edit"
+                fab:fab_colorNormal="@color/colorPrimary"
+                fab:fab_colorPressed="@color/colorPrimaryDark"
+                fab:fab_label="Edit Transaction"
+                fab:fab_size="mini" />
 
-                <Button
-                    android:id="@+id/cancelEditsButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/red_button"
-                    android:text="Cancel Edits"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white" />
-
-            </LinearLayout>
-        </RelativeLayout>
-
-    </LinearLayout>
+        </com.github.clans.fab.FloatingActionMenu>
+    </android.support.v7.widget.CardView>
 
 
 </LinearLayout>

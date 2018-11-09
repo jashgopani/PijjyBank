@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditTransaction">
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/edittransaction_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:drawSelectorOnTop="true"
+        android:theme="@style/customToolbar"
+        app:popupTheme="@style/customPopup"
+        app:theme="@style/customToolbar"
+        app:title="Edit Transaction"
+        app:titleTextColor="#ffffff"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+    <!--Edit Mode Layout-->
+    <!--main outer layout-->
+    <LinearLayout
+
+        android:id="@+id/editTransactionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="9"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editTransactionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:hint="Expense Title"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="82dp" />
+
+        <Spinner
+            android:id="@+id/editTransactionCategory"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginVertical="5dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:paddingTop="10dp"></Spinner>
+
+        <!--amount and payee wala layout-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Amount" />
+
+                <EditText
+                    android:id="@+id/editTransactionAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:hint="XXX" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To" />
+
+                <EditText
+                    android:id="@+id/editTransactionParty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/colorPrimary" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!--mode,currency wala layout-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Mode" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/editTransactionMode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:entries="@array/payment_mode_array" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Currency Type" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/editTransactionCurrency"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:entries="@array/currency_array" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description" />
+
+        <EditText
+            android:id="@+id/editTransactionDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:inputType="text|textMultiLine" />
+
+
+    </LinearLayout>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/saveEditsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="right|bottom"
+        android:src="@drawable/save"
+        fab:fab_colorNormal="@color/colorPrimary"
+        fab:fab_colorPressed="@color/colorPrimaryDark"
+        fab:fab_label="Save" />
+</LinearLayout>
