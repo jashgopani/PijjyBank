@@ -318,5 +318,9 @@ public class ProfileActivity extends AppCompatActivity {
         Toast.makeText(this, "Logout Successful ", Toast.LENGTH_SHORT).show();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(ProfileActivity.this,PayrollActivity.class));
+    }
 }

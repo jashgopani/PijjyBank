@@ -178,6 +178,11 @@ public class dashboard extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(dashboard.this,PayrollActivity.class));
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -214,7 +219,6 @@ public class dashboard extends AppCompatActivity {
 
     public void categorizeExpenses(Transaction t) {
         float val = Integer.parseInt(t.getAmount());
-//        Toast.makeText(this, t.getType(), Toast.LENGTH_SHORT).show();
         String type = t.getType();
         String category = t.getCategory();
         if (type.compareTo("Expense") == 0) {
@@ -238,7 +242,6 @@ public class dashboard extends AppCompatActivity {
                 Toast.makeText(this, "Some other error", Toast.LENGTH_SHORT).show();
             }
         } else {
-//            Toast.makeText(this, "Income", Toast.LENGTH_SHORT).show();
             if (category.compareTo(incomeCategories[0]) == 0) {
                 incomeSum[0] += val;
             } else if (category.compareTo(incomeCategories[1]) == 0) {
@@ -333,15 +336,18 @@ public class dashboard extends AppCompatActivity {
     }
 
     private void setCounts(List<Transaction> mtransactionList) {
+        expenseCount = 0;
+        incomeCount = 0;
 
         for (Transaction t : mtransactionList) {
-            if (t.getCategory().compareTo("Expense") == 0) {
-                Toast.makeText(this, "Expense - " + t.getType(), Toast.LENGTH_SHORT).show();
+            if (t.getType().compareTo("Expense") == 0) {
                 expenseCount++;
+            }else if(t.getType().compareTo("Income") == 0){
+                incomeCount++;
             }
         }
         totalExpenses.setText(Integer.toString(expenseCount));
-        incomeCount = mtransactionList.size() - expenseCount;
+//        incomeCount = mtransactionList.size() - expenseCount;
         totalIncomes.setText(Integer.toString(incomeCount));
     }
 }

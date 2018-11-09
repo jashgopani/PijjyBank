@@ -121,31 +121,6 @@ public class OpenTransaction extends AppCompatActivity {
             }
         });
 
-//        ValueEventListener transactionEventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    Transaction temp = snapshot.getValue(Transaction.class);
-//                    key = snapshot.getKey();
-//                    if (temp.getUid().compareTo(id) == 0) { // if uid matches
-//                        if (transactionMatched(temp)) {
-//                            retrivedObject = temp;
-//                            key = snapshot.getKey();
-//                            break;
-//                        }
-//                    }
-//                }
-//                if (retrivedObject == null) {
-//                    Toast.makeText(OpenTransaction.this, "Error 404 : Object not found", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        };
-//        transactionReference.addValueEventListener(transactionEventListener);
 
 
         //Set Onclick Listener for delete button
@@ -176,6 +151,11 @@ public class OpenTransaction extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(OpenTransaction.this,PayrollActivity.class));
+    }
 
     @Override
     public boolean onSupportNavigateUp() {

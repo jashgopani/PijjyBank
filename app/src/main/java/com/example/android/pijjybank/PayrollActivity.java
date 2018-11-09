@@ -3,6 +3,7 @@ package com.example.android.pijjybank;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -54,6 +55,7 @@ public class PayrollActivity extends AppCompatActivity {
     NavigationView navigationView;
     View headerView;
     LinearLayout zeroTransactions;
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,30 +121,7 @@ public class PayrollActivity extends AppCompatActivity {
         //Transactions retive
         transactionList = new ArrayList<>();
         TransactionsRef = FirebaseDatabase.getInstance().getReference("Transactions");
-//
-//        TransactionsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    Transaction temp = snapshot.getValue(Transaction.class);
-//                    if (temp.uid.equals(id)) {
-//                        transactionList.add(temp);
-//                    }
-//                }
-//                Collections.reverse(transactionList);
-//                expenseAdapter.notifyDataSetChanged();
-//                if (transactionList.size() == 0) {
-//                    zeroTransactions.setVisibility(LinearLayout.VISIBLE);
-//                } else {
-//                    zeroTransactions.setVisibility(LinearLayout.GONE);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+
 
         ValueEventListener transactionListener = new ValueEventListener() {
             @Override
@@ -236,6 +215,25 @@ public class PayrollActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
     @Override
