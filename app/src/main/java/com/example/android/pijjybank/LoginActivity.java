@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -54,20 +53,20 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username=etUserName.getText().toString();
-                String password=etPassword.getText().toString();
+                String username = etUserName.getText().toString();
+                String password = etPassword.getText().toString();
 
-                if(!username.isEmpty() || !password.isEmpty())//if username and password are not blank
+                if (!username.isEmpty() || !password.isEmpty())//if username and password are not blank
                     validate(username, password);
-                else{//display alert message
-                    AlertDialog.Builder errorMsg= new AlertDialog.Builder(LoginActivity.this);
+                else {//display alert message
+                    AlertDialog.Builder errorMsg = new AlertDialog.Builder(LoginActivity.this);
                     errorMsg.setMessage("Credentials cannot be blank").setCancelable(false)
-                    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
+                            .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
 
                     AlertDialog alert = errorMsg.create();
                     alert.setTitle("Error");
@@ -103,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     progressDialog.dismiss();
                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this,PayrollActivity.class));
+                    startActivity(new Intent(LoginActivity.this, PayrollActivity.class));
                 } else {
                     progressDialog.dismiss();
                     Log.w("login", "signInWithCustomToken:failure", task.getException());

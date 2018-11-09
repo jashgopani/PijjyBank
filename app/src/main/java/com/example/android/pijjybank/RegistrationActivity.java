@@ -39,8 +39,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         initialize();
         //enabling offline capabilities
-        if (!calledAlready)
-        {
+        if (!calledAlready) {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
             calledAlready = true;
         }
@@ -66,17 +65,17 @@ public class RegistrationActivity extends AppCompatActivity {
                             if (task.isSuccessful()) { //Add username to the database
                                 final String id = firebaseAuth.getCurrentUser().getUid();
                                 db = FirebaseDatabase.getInstance().getReference("Users/");
-                                db.child(id).setValue(new User(name,0));
-                                Log.v("Jash","User id :"+id);
+                                db.child(id).setValue(new User(name, 0));
+                                Log.v("Jash", "User id :" + id);
                                 /*
-                                * {
-                                *   users : {
-                                *       id : {
-                                *           name : etRegName
-                                *       }
-                                *   }
-                                * }
-                                */
+                                 * {
+                                 *   users : {
+                                 *       id : {
+                                 *           name : etRegName
+                                 *       }
+                                 *   }
+                                 * }
+                                 */
 
                                 progressDialog.dismiss();
                                 Toast.makeText(RegistrationActivity.this, "Registration Successful ", Toast.LENGTH_SHORT).show();

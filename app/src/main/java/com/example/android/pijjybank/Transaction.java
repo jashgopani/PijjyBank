@@ -14,7 +14,7 @@ public class Transaction {
     String title;
     String category;
     String amount;
-    String mode,party,description;
+    String mode, party, description;
     String type;//Expense or Income
 
     String date;
@@ -25,7 +25,7 @@ public class Transaction {
 
     int categoryIcon;
 
-    public Transaction(String type,String uid, String title, int categoryIcon,String category, String amount, String mode, String party, String description) {
+    public Transaction(String type, String uid, String title, int categoryIcon, String category, String amount, String mode, String party, String description) {
         this.type = type;
         this.uid = uid;
         this.title = title;
@@ -43,8 +43,8 @@ public class Transaction {
         this.date = date;
     }
 
-    public Transaction(){
-        Log.i("default","constructor");
+    public Transaction() {
+        Log.i("default", "constructor");
     }
 
     public String getMode() {
@@ -63,19 +63,19 @@ public class Transaction {
         return type;
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
 
-    public String getCategory(){
+    public String getCategory() {
         return category;
     }
 
-    public String getAmount(){
+    public String getAmount() {
         return amount;
     }
 
-    public String getDate(){
+    public String getDate() {
         return date;
     }
 
@@ -83,7 +83,7 @@ public class Transaction {
         return categoryIcon;
     }
 
-    public Intent openTransaction(Context context){
+    public Intent openTransaction(Context context) {
 
 //        String uid;
 //        String title;
@@ -92,18 +92,18 @@ public class Transaction {
 //        String mode,party,description;
 //        String type;//Expense or Income
 
-        Intent intent = new Intent(context,OpenTransaction.class);
+        Intent intent = new Intent(context, OpenTransaction.class);
         Bundle bundle = new Bundle();
-        bundle.putString("uid",uid);
-        bundle.putString("title",title);
-        bundle.putString("category",category);
-        bundle.putString("amount",amount);
-        bundle.putString("mode",mode);
-        bundle.putString("party",party);
-        bundle.putString("description",description);
-        bundle.putString("type",type);
-        bundle.putString("date",date);
-        bundle.putInt("categoryIcon",categoryIcon);
+        bundle.putString("uid", uid);
+        bundle.putString("title", title);
+        bundle.putString("category", category);
+        bundle.putString("amount", amount);
+        bundle.putString("mode", mode);
+        bundle.putString("party", party);
+        bundle.putString("description", description);
+        bundle.putString("type", type);
+        bundle.putString("date", date);
+        bundle.putInt("categoryIcon", categoryIcon);
         intent.putExtras(bundle);
         return intent;
     }

@@ -52,13 +52,13 @@ public class dashboard extends AppCompatActivity {
     String id;
     DatabaseReference TransactionsRef;
     List<Transaction> transactionList;
-    PieChart expensePieChart,incomePieChart;
-    String [] expenseCategories = {"Food","Travel","Shopping","HealthCare","Entertainment","Fees","Other"};
-    String [] incomeCategories = {"Salary","Gift","Depreciation","Cashback","Prize","Other"};
+    PieChart expensePieChart, incomePieChart;
+    String[] expenseCategories = {"Food", "Travel", "Shopping", "HealthCare", "Entertainment", "Fees", "Other"};
+    String[] incomeCategories = {"Salary", "Gift", "Depreciation", "Cashback", "Prize", "Other"};
     float expenseSum[];
     float incomeSum[];
-    TextView totalExpenses,totalIncomes,budgetAmount,totalExpensesAmount,totalIncomeAmount,amountLeft;
-    int expenseCount,incomeCount;
+    TextView totalExpenses, totalIncomes, budgetAmount, totalExpensesAmount, totalIncomeAmount, amountLeft;
+    int expenseCount, incomeCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +74,12 @@ public class dashboard extends AppCompatActivity {
 
 
         //Initializing TextViews
-        totalExpenses = (TextView)findViewById(R.id.totalExpenses);
-        totalIncomes = (TextView)findViewById(R.id.totalIncome);
-        budgetAmount = (TextView)findViewById(R.id.budget);
-        totalExpensesAmount = (TextView)findViewById(R.id.totalExpenseAmount);
-        totalIncomeAmount  = (TextView)findViewById(R.id.totalIncomeAmount);
-        amountLeft = (TextView)findViewById(R.id.amountLeft);
+        totalExpenses = (TextView) findViewById(R.id.totalExpenses);
+        totalIncomes = (TextView) findViewById(R.id.totalIncome);
+        budgetAmount = (TextView) findViewById(R.id.budget);
+        totalExpensesAmount = (TextView) findViewById(R.id.totalExpenseAmount);
+        totalIncomeAmount = (TextView) findViewById(R.id.totalIncomeAmount);
+        amountLeft = (TextView) findViewById(R.id.amountLeft);
 
 
         //Firebase auth
@@ -142,8 +142,8 @@ public class dashboard extends AppCompatActivity {
 
         //PieChart Stuff
         //set properties of pie chart
-        expensePieChart = (PieChart)findViewById(R.id.expensePieChart);
-        incomePieChart = (PieChart)findViewById(R.id.incomePieChart);
+        expensePieChart = (PieChart) findViewById(R.id.expensePieChart);
+        incomePieChart = (PieChart) findViewById(R.id.incomePieChart);
 
 
         //Transactions retrieve
@@ -160,8 +160,8 @@ public class dashboard extends AppCompatActivity {
                         transactionList.add(temp);
                         setCounts(transactionList);
                         categorizeExpenses(temp);
-                        drawPieChart(expensePieChart,"Expense\nSummary",expenseCategories,expenseSum,"Expense Categories",ColorTemplate.COLORFUL_COLORS);
-                        drawPieChart(incomePieChart,"Income\nSummary",incomeCategories,incomeSum,"Income Categories",ColorTemplate.MATERIAL_COLORS);
+                        drawPieChart(expensePieChart, "Expense\nSummary", expenseCategories, expenseSum, "Expense Categories", ColorTemplate.COLORFUL_COLORS);
+                        drawPieChart(incomePieChart, "Income\nSummary", incomeCategories, incomeSum, "Income Categories", ColorTemplate.MATERIAL_COLORS);
                     }
                 }
             }
@@ -177,7 +177,6 @@ public class dashboard extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -190,14 +189,14 @@ public class dashboard extends AppCompatActivity {
                 return true;
 
             case R.id.Timeline:
-                startActivity(new Intent(dashboard.this,PayrollActivity.class));
+                startActivity(new Intent(dashboard.this, PayrollActivity.class));
                 return true;
 
             case R.id.Dashboard:
                 return true;
 
             case R.id.Profile:
-                startActivity(new Intent(dashboard.this,ProfileActivity.class));
+                startActivity(new Intent(dashboard.this, ProfileActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -211,45 +210,45 @@ public class dashboard extends AppCompatActivity {
         Toast.makeText(this, "Logout Successful ", Toast.LENGTH_SHORT).show();
     }
 
-    public void categorizeExpenses(Transaction t){
+    public void categorizeExpenses(Transaction t) {
         float val = Integer.parseInt(t.getAmount());
 //        Toast.makeText(this, t.getType(), Toast.LENGTH_SHORT).show();
         String type = t.getType();
         String category = t.getCategory();
-        if(type.compareTo("Expense") == 0){
+        if (type.compareTo("Expense") == 0) {
             expenseCount += 1;//increment Expense Count
-            if(category.compareTo(expenseCategories[0]) == 0){
+            if (category.compareTo(expenseCategories[0]) == 0) {
                 expenseSum[0] += val;
-            }else if(category.compareTo(expenseCategories[1]) == 0){
+            } else if (category.compareTo(expenseCategories[1]) == 0) {
                 expenseSum[1] += val;
-            }else if(category.compareTo(expenseCategories[2]) == 0){
+            } else if (category.compareTo(expenseCategories[2]) == 0) {
                 expenseSum[2] += val;
-            }else if(category.compareTo(expenseCategories[3]) == 0){
+            } else if (category.compareTo(expenseCategories[3]) == 0) {
                 expenseSum[3] += val;
-            }else if(category.compareTo(expenseCategories[4]) == 0){
+            } else if (category.compareTo(expenseCategories[4]) == 0) {
                 expenseSum[4] += val;
-            }else if(category.compareTo(expenseCategories[5]) == 0){
+            } else if (category.compareTo(expenseCategories[5]) == 0) {
                 expenseSum[5] += val;
-            }else if(category.compareTo(expenseCategories[6]) == 0){
+            } else if (category.compareTo(expenseCategories[6]) == 0) {
                 expenseSum[6] += val;
-            }else{
+            } else {
                 Toast.makeText(this, "Some other error", Toast.LENGTH_SHORT).show();
             }
-        }else{
+        } else {
 //            Toast.makeText(this, "Income", Toast.LENGTH_SHORT).show();
-            if(category.compareTo(incomeCategories[0]) == 0){
+            if (category.compareTo(incomeCategories[0]) == 0) {
                 incomeSum[0] += val;
-            }else if(category.compareTo(incomeCategories[1]) == 0){
+            } else if (category.compareTo(incomeCategories[1]) == 0) {
                 incomeSum[1] += val;
-            }else if(category.compareTo(incomeCategories[2]) == 0){
+            } else if (category.compareTo(incomeCategories[2]) == 0) {
                 incomeSum[2] += val;
-            }else if(category.compareTo(incomeCategories[3]) == 0){
+            } else if (category.compareTo(incomeCategories[3]) == 0) {
                 incomeSum[3] += val;
-            }else if(category.compareTo(incomeCategories[4]) == 0){
+            } else if (category.compareTo(incomeCategories[4]) == 0) {
                 incomeSum[4] += val;
-            }else if(category.compareTo(incomeCategories[5]) == 0){
+            } else if (category.compareTo(incomeCategories[5]) == 0) {
                 incomeSum[5] += val;
-            }else{
+            } else {
                 Toast.makeText(this, "Some other error", Toast.LENGTH_SHORT).show();
             }
         }
@@ -262,7 +261,7 @@ public class dashboard extends AppCompatActivity {
 
     }
 
-    public void drawPieChart(PieChart p ,String chartTitle, String[] categoryNames,float[] categoryValues,String legendLabel,int[] colorTemplate){
+    public void drawPieChart(PieChart p, String chartTitle, String[] categoryNames, float[] categoryValues, String legendLabel, int[] colorTemplate) {
         p.setUsePercentValues(true);
         p.getDescription().setEnabled(false);
         p.setDragDecelerationFrictionCoef(0.95f);
@@ -274,13 +273,13 @@ public class dashboard extends AppCompatActivity {
 
         //Create Entries for pie chart
         ArrayList<PieEntry> yValues = new ArrayList<>();
-        for(int i=0;i<categoryValues.length;i++){
-            if(categoryValues[i]>0)
-                yValues.add(new PieEntry(categoryValues[i],categoryNames[i]));
+        for (int i = 0; i < categoryValues.length; i++) {
+            if (categoryValues[i] > 0)
+                yValues.add(new PieEntry(categoryValues[i], categoryNames[i]));
         }
 
         //Generate a dataset using those entries
-        PieDataSet dataSet = new PieDataSet(yValues,legendLabel);
+        PieDataSet dataSet = new PieDataSet(yValues, legendLabel);
         dataSet.setSelectionShift(10f);
         dataSet.setColors(colorTemplate);
         dataSet.setSliceSpace(3f);
@@ -304,13 +303,13 @@ public class dashboard extends AppCompatActivity {
         p.notifyDataSetChanged();
     }
 
-    public void drawValueBar(float sum){
-        float percent = (sum/userbudget) * 100;
-        valueBar.setMinMax(0,userbudget);
-        valueBar.animate(0,sum,1500);
+    public void drawValueBar(float sum) {
+        float percent = (sum / userbudget) * 100;
+        valueBar.setMinMax(0, userbudget);
+        valueBar.animate(0, sum, 1500);
         valueBar.setInterval(0f);
         valueBar.setDrawBorder(false);
-        valueBar.setColor(Color.rgb(255,0,0));
+        valueBar.setColor(Color.rgb(255, 0, 0));
         valueBar.setValue(sum);
         valueBar.setValueTextSize(10f);
         valueBar.setMinMaxTextSize(10f);
@@ -318,19 +317,19 @@ public class dashboard extends AppCompatActivity {
 
     }
 
-    private float sumOfArray(float[] array){
+    private float sumOfArray(float[] array) {
         float sum = 0;
-        for(int i=0;i < array.length;i++){
+        for (int i = 0; i < array.length; i++) {
             sum = sum + array[i];
         }
         return sum;
     }
 
-    private void setCounts(List<Transaction> mtransactionList){
+    private void setCounts(List<Transaction> mtransactionList) {
 
-        for(Transaction t : mtransactionList){
-            if(t.getCategory().compareTo("Expense") == 0){
-                Toast.makeText(this, "Expense - "+t.getType(), Toast.LENGTH_SHORT).show();
+        for (Transaction t : mtransactionList) {
+            if (t.getCategory().compareTo("Expense") == 0) {
+                Toast.makeText(this, "Expense - " + t.getType(), Toast.LENGTH_SHORT).show();
                 expenseCount++;
             }
         }

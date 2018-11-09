@@ -30,11 +30,11 @@ import java.util.ArrayList;
 public class EditTransaction extends AppCompatActivity {
 
     Toolbar toolbar;
-    String uid,title,category,amount,mode,currency,party,description,type,date; //Transaction Details
+    String uid, title, category, amount, mode, currency, party, description, type, date; //Transaction Details
     int categoryIcon;//CategoryIcon
-    EditText titleET,amountET,partyET,descriptionET;
+    EditText titleET, amountET, partyET, descriptionET;
     private Spinner categorySP, modeSP, currencySP;
-    private ArrayList<Category> expenseCategoryArrayList,incomeCategoryArrayList;
+    private ArrayList<Category> expenseCategoryArrayList, incomeCategoryArrayList;
     CategoryAdapter categoryAdapter;
     FloatingActionButton saveEditsButton;
     Transaction retrivedObject;
@@ -50,7 +50,6 @@ public class EditTransaction extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
 
 
         //Get Details from PayrollActivity
@@ -69,9 +68,9 @@ public class EditTransaction extends AppCompatActivity {
 
         //Setting flag to show only those categories that belong to the type of transaction i.e income / expense spinners
         final boolean isExpense;
-        if(type.compareTo("Expense")==0){
+        if (type.compareTo("Expense") == 0) {
             isExpense = true;
-        }else{
+        } else {
             isExpense = false;
         }
 
@@ -79,7 +78,6 @@ public class EditTransaction extends AppCompatActivity {
         initializeViews(isExpense);
 
 
-        
         //getting id of currently logged in user
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         final String id = firebaseAuth.getCurrentUser().getUid().trim();
@@ -96,45 +94,46 @@ public class EditTransaction extends AppCompatActivity {
         ValueEventListener transactionEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Transaction temp = snapshot.getValue(Transaction.class);
                     key = snapshot.getKey();
-                    if(temp.getUid().compareTo(id)==0){ // if uid matches
-                        if(transactionMatched(temp)){
+                    if (temp.getUid().compareTo(id) == 0) { // if uid matches
+                        if (transactionMatched(temp)) {
                             retrivedObject = temp;
                             key = snapshot.getKey();
                             break;
                         }
                     }
                 }
-                if(retrivedObject == null){
+                if (retrivedObject == null) {
                     Toast.makeText(EditTransaction.this, "Error 404 : Object not found", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         };
         transactionReference.addValueEventListener(transactionEventListener);
-        
+
         //Onclick listener for saving edits
         saveEditsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //save edits
-                if(getAllValues()){
-                    Transaction updated = new Transaction(type,id,title,categoryIcon,category,amount,mode,party,description);
+                if (getAllValues()) {
+                    Transaction updated = new Transaction(type, id, title, categoryIcon, category, amount, mode, party, description);
                     updated.setDate(date);
                     transactionReference.child(key).setValue(updated).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(EditTransaction.this, "Successfully updated", Toast.LENGTH_SHORT).show();
                             finish();
-                            startActivity(new Intent(EditTransaction.this,PayrollActivity.class));
+                            startActivity(new Intent(EditTransaction.this, PayrollActivity.class));
                         }
                     });
-                }else{
+                } else {
                     Toast.makeText(EditTransaction.this, "Server Error", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -146,12 +145,12 @@ public class EditTransaction extends AppCompatActivity {
     public void onBackPressed() {
         new AlertDialog.Builder(EditTransaction.this)
                 .setTitle("Discard Changes")
-                .setMessage("All unsaved changes will be discarded ")
+                .setMessage("All unsaved changes will be discarded !")
                 .setPositiveButton("Discard Changes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
-                        startActivity(new Intent(EditTransaction.this,PayrollActivity.class));
+                        startActivity(new Intent(EditTransaction.this, PayrollActivity.class));
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -172,7 +171,7 @@ public class EditTransaction extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
-                        startActivity(new Intent(EditTransaction.this,PayrollActivity.class));
+                        startActivity(new Intent(EditTransaction.this, PayrollActivity.class));
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -187,10 +186,10 @@ public class EditTransaction extends AppCompatActivity {
 
     private boolean transactionMatched(Transaction temp) {
         boolean result = false;
-        if(temp.getTitle().compareTo(title) == 0){
-            if(temp.getType().compareTo(type) == 0){
-                if(temp.getCategory().compareTo(category) == 0){
-                    if(temp.getAmount().compareTo(amount) == 0){
+        if (temp.getTitle().compareTo(title) == 0) {
+            if (temp.getType().compareTo(type) == 0) {
+                if (temp.getCategory().compareTo(category) == 0) {
+                    if (temp.getAmount().compareTo(amount) == 0) {
                         result = true;
                     }
                 }
@@ -200,10 +199,10 @@ public class EditTransaction extends AppCompatActivity {
 
     }
 
-    private void initializeViews(boolean isExpense){
+    private void initializeViews(boolean isExpense) {
 
         //find all buttons
-        saveEditsButton = (FloatingActionButton)findViewById(R.id.saveEditsButton);
+        saveEditsButton = (FloatingActionButton) findViewById(R.id.saveEditsButton);
 
         //find all edit text views
         titleET = (EditText) findViewById(R.id.editTransactionTitle);
@@ -222,7 +221,7 @@ public class EditTransaction extends AppCompatActivity {
 
     }
 
-    private void setEditTextViews(){
+    private void setEditTextViews() {
         titleET.setText(title);
         amountET.setText(amount);
         partyET.setText(party);
@@ -240,20 +239,20 @@ public class EditTransaction extends AppCompatActivity {
         expenseCategoryArrayList.add(new Category("Other", R.drawable.other));
     }
 
-    private void initIncomeCategoryList(){
+    private void initIncomeCategoryList() {
         incomeCategoryArrayList = new ArrayList<>();
-        incomeCategoryArrayList.add(new Category("Salary",R.drawable.salary));
-        incomeCategoryArrayList.add(new Category("Gift",R.drawable.gift));
-        incomeCategoryArrayList.add(new Category("Depreciation",R.drawable.depreciation));
-        incomeCategoryArrayList.add(new Category("Cashback",R.drawable.cashback));
-        incomeCategoryArrayList.add(new Category("Prize",R.drawable.prize));
-        incomeCategoryArrayList.add(new Category("Other",R.drawable.other));
+        incomeCategoryArrayList.add(new Category("Salary", R.drawable.salary));
+        incomeCategoryArrayList.add(new Category("Gift", R.drawable.gift));
+        incomeCategoryArrayList.add(new Category("Depreciation", R.drawable.depreciation));
+        incomeCategoryArrayList.add(new Category("Cashback", R.drawable.cashback));
+        incomeCategoryArrayList.add(new Category("Prize", R.drawable.prize));
+        incomeCategoryArrayList.add(new Category("Other", R.drawable.other));
     }
 
-    private int searchArrayList(ArrayList<Category> categoryList,String element,int number){
+    private int searchArrayList(ArrayList<Category> categoryList, String element, int number) {
         int position = 0;
-        for(Category c : categoryList){
-            if(c.getCategoryName().compareTo(element)==0 && c.getCategoryIcon()==number){
+        for (Category c : categoryList) {
+            if (c.getCategoryName().compareTo(element) == 0 && c.getCategoryIcon() == number) {
                 break;
             }
             position++;
@@ -262,14 +261,14 @@ public class EditTransaction extends AppCompatActivity {
 
     }
 
-    public void initAllSpinners(boolean isExpense){
+    public void initAllSpinners(boolean isExpense) {
         //setup category Spinner
-        if(isExpense){ //mode 0 ==> Expense
+        if (isExpense) { //mode 0 ==> Expense
             initExpenseCategoryList();//initialsing list
             categoryAdapter = new CategoryAdapter(this, expenseCategoryArrayList);//setting up adapter
             categorySP.setAdapter(categoryAdapter);// Apply the adapter to the spinner
-            int current = searchArrayList(expenseCategoryArrayList,category,categoryIcon);
-            categorySP.setSelection(current,true);
+            int current = searchArrayList(expenseCategoryArrayList, category, categoryIcon);
+            categorySP.setSelection(current, true);
             categorySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//to get Value of Spinner Item
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -284,13 +283,13 @@ public class EditTransaction extends AppCompatActivity {
                 }
             });
 
-        }else{ //mode 1 ==> Income
+        } else { //mode 1 ==> Income
 
             initIncomeCategoryList();//initialsing list
             categoryAdapter = new CategoryAdapter(this, incomeCategoryArrayList);//setting up adapter
             categorySP.setAdapter(categoryAdapter);// Apply the adapter to the spinner
             int current = incomeCategoryArrayList.indexOf(category);
-            categorySP.setSelection(current,true);
+            categorySP.setSelection(current, true);
             categorySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//to get Value of Spinner Item
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -311,12 +310,12 @@ public class EditTransaction extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.payment_mode_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         modeSP.setAdapter(adapter2);
-        int current2 = getStringItemPosition(mode,R.array.payment_mode_array);
+        int current2 = getStringItemPosition(mode, R.array.payment_mode_array);
         modeSP.setSelection(current2);
         modeSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mode = (String)parent.getItemAtPosition(position);
+                mode = (String) parent.getItemAtPosition(position);
             }
 
             @Override
@@ -359,19 +358,19 @@ public class EditTransaction extends AppCompatActivity {
             amount = temp;
         }
 
-        if(title.isEmpty() || party.isEmpty() || mode.isEmpty()){
+        if (title.isEmpty() || party.isEmpty() || mode.isEmpty()) {
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
             validity = false;
         }
         return validity;
     }
 
-    private int getStringItemPosition(String element,int resourceId){
-        int position =0 ;
+    private int getStringItemPosition(String element, int resourceId) {
+        int position = 0;
         Resources res = getResources(); //assuming in an activity for example, otherwise you can provide a context.
         String[] array = res.getStringArray(resourceId);
-        for(int i=0;i<array.length;i++){
-            if(array[i].compareTo(element)==0){
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].compareTo(element) == 0) {
                 position = i;
                 break;
             }

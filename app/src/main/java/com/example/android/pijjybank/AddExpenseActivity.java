@@ -72,7 +72,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         mode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                modeValue = (String)parent.getItemAtPosition(position);
+                modeValue = (String) parent.getItemAtPosition(position);
             }
 
             @Override
@@ -112,8 +112,8 @@ public class AddExpenseActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getAllValues()){
-                    Transaction t = new Transaction("Expense",userID,titleValue,categoryIconValue,categoryValue,amountValue,modeValue,payeeValue,descriptionValue);
+                if (getAllValues()) {
+                    Transaction t = new Transaction("Expense", userID, titleValue, categoryIconValue, categoryValue, amountValue, modeValue, payeeValue, descriptionValue);
                     DatabaseReference child = database.child("Transactions");
                     child.push().setValue(t);
                     Toast.makeText(AddExpenseActivity.this, "Expense Added Successfully", Toast.LENGTH_SHORT).show();
@@ -164,7 +164,7 @@ public class AddExpenseActivity extends AppCompatActivity {
             amountValue = temp;
         }
 
-        if(titleValue.isEmpty() || payeeValue.isEmpty() || modeValue.isEmpty() || currencyTypeValue.isEmpty()){
+        if (titleValue.isEmpty() || payeeValue.isEmpty() || modeValue.isEmpty() || currencyTypeValue.isEmpty()) {
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
             validity = false;
         }

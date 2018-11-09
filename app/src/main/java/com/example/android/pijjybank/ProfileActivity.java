@@ -32,7 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProfileActivity extends AppCompatActivity{
+public class ProfileActivity extends AppCompatActivity {
 
 
     FirebaseAuth firebaseAuth;
@@ -48,8 +48,7 @@ public class ProfileActivity extends AppCompatActivity{
     DatabaseReference UserRef;
     String navHeaderName;
     String id;
-    EditText editUsername,editEmail,editBudget;
-
+    EditText editUsername, editEmail, editBudget;
 
 
     @Override
@@ -64,9 +63,9 @@ public class ProfileActivity extends AppCompatActivity{
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24px);
 
-        final TextView usernametv = (TextView)findViewById(R.id.usernametv);
-        final TextView emailtv = (TextView)findViewById(R.id.emailtv);
-        final TextView budgettv = (TextView)findViewById(R.id.budgettv);
+        final TextView usernametv = (TextView) findViewById(R.id.usernametv);
+        final TextView emailtv = (TextView) findViewById(R.id.emailtv);
+        final TextView budgettv = (TextView) findViewById(R.id.budgettv);
 
         //Firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
@@ -123,7 +122,6 @@ public class ProfileActivity extends AppCompatActivity{
         UserRef.addValueEventListener(nameListener);
 
 
-
         //reset password link action
         resetPassword = findViewById(R.id.resetPassword);
         resetPassword.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +137,7 @@ public class ProfileActivity extends AppCompatActivity{
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                Toast.makeText(ProfileActivity.this, "Reset Link sent to "+firebaseAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
+                                                Toast.makeText(ProfileActivity.this, "Reset Link sent to " + firebaseAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
                                             }
                                         });
                             }
@@ -156,53 +154,53 @@ public class ProfileActivity extends AppCompatActivity{
 
 
         //Edit profile options
-        editUsername = (EditText)findViewById(R.id.editusernametv);
+        editUsername = (EditText) findViewById(R.id.editusernametv);
         editUsername.setVisibility(View.GONE);
         editUsername.setText(firebaseAuth.getCurrentUser().getEmail());
 
-        editBudget = (EditText)findViewById(R.id.editbudgettv);
+        editBudget = (EditText) findViewById(R.id.editbudgettv);
         editBudget.setVisibility(View.GONE);
 
-        editEmail = (EditText)findViewById(R.id.editemailtv);
+        editEmail = (EditText) findViewById(R.id.editemailtv);
         editEmail.setVisibility(View.GONE);
 
-        final ImageView editusernameicon = (ImageView)findViewById(R.id.editusernameicon);
-        final ImageView editemailicon = (ImageView)findViewById(R.id.editemailicon);
-        final ImageView editBudgeticon = (ImageView)findViewById(R.id.editbudgeticon);
+        final ImageView editusernameicon = (ImageView) findViewById(R.id.editusernameicon);
+        final ImageView editemailicon = (ImageView) findViewById(R.id.editemailicon);
+        final ImageView editBudgeticon = (ImageView) findViewById(R.id.editbudgeticon);
 
         editusernameicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateName(usernametv,editUsername,editusernameicon);
+                updateName(usernametv, editUsername, editusernameicon);
             }
         });
 
         editemailicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateEmail(emailtv,editEmail,editemailicon);
+                updateEmail(emailtv, editEmail, editemailicon);
             }
         });
 
         editBudgeticon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateBudget(budgettv,editBudget,editBudgeticon);
+                updateBudget(budgettv, editBudget, editBudgeticon);
             }
         });
 
 
     }
 
-    public void updateName(TextView t1,EditText t2,ImageView icon){
-        if(t1.getVisibility() == View.VISIBLE){//enter into editing mode
+    public void updateName(TextView t1, EditText t2, ImageView icon) {
+        if (t1.getVisibility() == View.VISIBLE) {//enter into editing mode
             t1.setVisibility(View.GONE);
             icon.setImageResource(R.drawable.done_icon);
             t2.setVisibility(View.VISIBLE);//showing edittext
             t2.setText(t1.getText());
-        }else{//updating the details
+        } else {//updating the details
             String newName = t2.getText().toString().trim();
-            DatabaseReference temp = FirebaseDatabase.getInstance().getReference("Users/"+id);
+            DatabaseReference temp = FirebaseDatabase.getInstance().getReference("Users/" + id);
             temp.child("name").setValue(newName);
             t1.setVisibility(View.VISIBLE);
             icon.setImageResource(R.drawable.edit_icon);
@@ -210,13 +208,13 @@ public class ProfileActivity extends AppCompatActivity{
         }
     }
 
-    public void updateEmail(final TextView t1, final EditText t2, final ImageView icon){
-        if(t1.getVisibility() == View.VISIBLE){
+    public void updateEmail(final TextView t1, final EditText t2, final ImageView icon) {
+        if (t1.getVisibility() == View.VISIBLE) {
             t1.setVisibility(View.GONE);
             icon.setImageResource(R.drawable.done_icon);
             t2.setVisibility(View.VISIBLE);
             t2.setHint("New Email Id");
-        }else{
+        } else {
             t2.setText(firebaseAuth.getCurrentUser().getEmail());
             final String newEmail = t2.getText().toString().trim();
             final FirebaseUser temp = firebaseAuth.getCurrentUser();
@@ -236,14 +234,14 @@ public class ProfileActivity extends AppCompatActivity{
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     tempPassword = input.getText().toString();
-                    AuthCredential credential = EmailAuthProvider.getCredential(firebaseAuth.getCurrentUser().getEmail(),tempPassword);
+                    AuthCredential credential = EmailAuthProvider.getCredential(firebaseAuth.getCurrentUser().getEmail(), tempPassword);
                     firebaseAuth.getCurrentUser().reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             firebaseAuth.getCurrentUser().updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
+                                    if (task.isSuccessful()) {
                                         t1.setVisibility(View.VISIBLE);
                                         icon.setImageResource(R.drawable.edit_icon);
                                         t2.setVisibility(View.GONE);
@@ -267,16 +265,20 @@ public class ProfileActivity extends AppCompatActivity{
         }
     }
 
-    public void updateBudget(TextView t1,EditText t2,ImageView icon){
-        if(t1.getVisibility() == View.VISIBLE){//enter into editing mode
+    public void updateBudget(TextView t1, EditText t2, ImageView icon) {
+        if (t1.getVisibility() == View.VISIBLE) {//enter into editing mode
             t1.setVisibility(View.GONE);
             icon.setImageResource(R.drawable.done_icon);
             t2.setVisibility(View.VISIBLE);//showing edittext
             t2.setText(t1.getText());
-        }else{//updating the details
+        } else {//updating the details
             int newbudget = Integer.parseInt(t2.getText().toString().trim());
-            DatabaseReference temp = FirebaseDatabase.getInstance().getReference("Users/"+id);
-            temp.setValue(new User(navHeaderName,newbudget));
+            if (t2.getText().toString().isEmpty() || newbudget <= 0) {
+                t2.setText(t1.getText());
+                Toast.makeText(this, "Budget must be greater than 0", Toast.LENGTH_SHORT).show();
+            }
+            DatabaseReference temp = FirebaseDatabase.getInstance().getReference("Users/" + id);
+            temp.setValue(new User(navHeaderName, newbudget));
             t1.setVisibility(View.VISIBLE);
             icon.setImageResource(R.drawable.edit_icon);
             t2.setVisibility(View.GONE);
@@ -295,11 +297,11 @@ public class ProfileActivity extends AppCompatActivity{
                 return true;
 
             case R.id.Timeline:
-                startActivity(new Intent(ProfileActivity.this,PayrollActivity.class));
+                startActivity(new Intent(ProfileActivity.this, PayrollActivity.class));
                 return true;
 
             case R.id.Dashboard:
-                startActivity(new Intent(ProfileActivity.this,dashboard.class));
+                startActivity(new Intent(ProfileActivity.this, dashboard.class));
                 return true;
 
             case R.id.Profile:

@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,11 +53,15 @@ public class PayrollActivity extends AppCompatActivity {
     TextView emailSideBar, usernameSideBar;
     NavigationView navigationView;
     View headerView;
+    LinearLayout zeroTransactions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payroll);
+
+        //ZeroTransactions TextView
+        zeroTransactions = (LinearLayout) findViewById(R.id.zeroTransactions);
 
         //enabling offline capabilities
         if (!calledAlready) {
@@ -95,7 +100,7 @@ public class PayrollActivity extends AppCompatActivity {
                     if (key.equals(id)) {
                         navHeaderName = current.getName();
                         usernameSideBar.setText(navHeaderName);
-                        if(current.getBudget() == 0){
+                        if (current.getBudget() == 0) {
                             getBudget(navHeaderName);
                         }
                     }
@@ -125,6 +130,11 @@ public class PayrollActivity extends AppCompatActivity {
                 }
                 Collections.reverse(transactionList);
                 expenseAdapter.notifyDataSetChanged();
+                if (transactionList.size() == 0) {
+                    zeroTransactions.setVisibility(LinearLayout.VISIBLE);
+                } else {
+                    zeroTransactions.setVisibility(LinearLayout.GONE);
+                }
             }
 
             @Override
@@ -133,7 +143,6 @@ public class PayrollActivity extends AppCompatActivity {
             }
         };
         TransactionsRef.addValueEventListener(transactionListener);
-
 
 
         Toolbar toolbar = findViewById(R.id.payroll_appbar);
@@ -245,7 +254,7 @@ public class PayrollActivity extends AppCompatActivity {
         return true;
     }
 
-    public void getBudget(final String username){
+    public void getBudget(final String username) {
         final int[] userbudget = new int[1];
         //Input Dialog Box For getting password
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -265,7 +274,7 @@ public class PayrollActivity extends AppCompatActivity {
 
                 final String id = firebaseAuth.getCurrentUser().getUid();
                 DatabaseReference db = FirebaseDatabase.getInstance().getReference("Users/");
-                db.child(id).setValue(new User(username,userbudget[0]));
+                db.child(id).setValue(new User(username, userbudget[0]));
             }
         });
         builder.show();

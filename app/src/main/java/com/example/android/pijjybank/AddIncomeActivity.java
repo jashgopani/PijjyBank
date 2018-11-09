@@ -34,7 +34,6 @@ public class AddIncomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_income);
 
@@ -46,7 +45,7 @@ public class AddIncomeActivity extends AppCompatActivity {
         //spinner wala stuff
         initList();//initialsing list
         category = (Spinner) findViewById(R.id.incomeCategory);
-        categoryAdapter = new CategoryAdapter(this,categoryArrayList);//setting up adapter
+        categoryAdapter = new CategoryAdapter(this, categoryArrayList);//setting up adapter
         category.setAdapter(categoryAdapter);// Apply the adapter to the spinner
         category.setSelection(0);
         category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//to get Value of Spinner Item
@@ -65,14 +64,14 @@ public class AddIncomeActivity extends AppCompatActivity {
 
 
         mode = (Spinner) findViewById(R.id.incomeMode);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.payment_mode_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.payment_mode_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mode.setAdapter(adapter2);
         mode.setSelection(0);
         mode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                modeValue = (String)parent.getItemAtPosition(position);
+                modeValue = (String) parent.getItemAtPosition(position);
             }
 
             @Override
@@ -83,7 +82,7 @@ public class AddIncomeActivity extends AppCompatActivity {
 
 
         currencyType = (Spinner) findViewById(R.id.incomeCurrency);
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,R.array.currency_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.currency_array, android.R.layout.simple_spinner_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         currencyType.setAdapter(adapter3);
         currencyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -108,12 +107,12 @@ public class AddIncomeActivity extends AppCompatActivity {
         //saving reference of database
         database = FirebaseDatabase.getInstance().getReference();
 
-        save=(Button)findViewById(R.id.save_button);
+        save = (Button) findViewById(R.id.save_button);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getAllValues()){
-                    Transaction t = new Transaction("Income",userID,titleValue,categoryIconValue,categoryValue,amountValue,modeValue,payerValue,descriptionValue);
+                if (getAllValues()) {
+                    Transaction t = new Transaction("Income", userID, titleValue, categoryIconValue, categoryValue, amountValue, modeValue, payerValue, descriptionValue);
                     DatabaseReference child = database.child("Transactions");
                     child.push().setValue(t);
                     Toast.makeText(AddIncomeActivity.this, "Income Added Successfully", Toast.LENGTH_SHORT).show();
@@ -138,14 +137,14 @@ public class AddIncomeActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    public  void initList(){
+    public void initList() {
         categoryArrayList = new ArrayList<>();
-        categoryArrayList.add(new Category("Salary",R.drawable.salary));
-        categoryArrayList.add(new Category("Gift",R.drawable.gift));
-        categoryArrayList.add(new Category("Depreciation",R.drawable.depreciation));
-        categoryArrayList.add(new Category("Cashback",R.drawable.cashback));
-        categoryArrayList.add(new Category("Prize",R.drawable.prize));
-        categoryArrayList.add(new Category("Other",R.drawable.other));
+        categoryArrayList.add(new Category("Salary", R.drawable.salary));
+        categoryArrayList.add(new Category("Gift", R.drawable.gift));
+        categoryArrayList.add(new Category("Depreciation", R.drawable.depreciation));
+        categoryArrayList.add(new Category("Cashback", R.drawable.cashback));
+        categoryArrayList.add(new Category("Prize", R.drawable.prize));
+        categoryArrayList.add(new Category("Other", R.drawable.other));
     }
 
     private boolean getAllValues() {
@@ -163,7 +162,7 @@ public class AddIncomeActivity extends AppCompatActivity {
             amountValue = temp;
         }
 
-        if(titleValue.isEmpty() || payerValue.isEmpty() || modeValue.isEmpty() || currencyTypeValue.isEmpty()){
+        if (titleValue.isEmpty() || payerValue.isEmpty() || modeValue.isEmpty() || currencyTypeValue.isEmpty()) {
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
             validity = false;
         }

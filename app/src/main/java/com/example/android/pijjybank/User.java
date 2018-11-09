@@ -4,7 +4,7 @@ public class User {
     String name;
     int budget;
 
-    public User(){
+    public User() {
         //for datasnapshot
     }
 

@@ -22,19 +22,44 @@
 
         <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
             android:id="@+id/payroll_appbar"
+            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Timeline"
-            app:titleTextColor="#ffffff"
+            android:drawSelectorOnTop="true"
             android:theme="@style/customToolbar"
             app:popupTheme="@style/customPopup"
             app:theme="@style/customToolbar"
-            android:drawSelectorOnTop="true"
+            app:title="Timeline"
+            app:titleTextColor="#ffffff"
             tools:ignore="InvalidId">
 
         </android.support.v7.widget.Toolbar>
 
+        <LinearLayout
+            android:id="@+id/zeroTransactions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="fill_vertical"
+            android:orientation="vertical"
+            android:paddingVertical="150dp"
+            android:textAlignment="gravity"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/gray_circle"
+                android:foregroundGravity="fill_vertical"
+                android:src="@mipmap/ic_launcher_foreground" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="fill_vertical"
+                android:text="No Transactions to show"
+                android:textAlignment="center" />
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -53,12 +78,12 @@
             android:id="@+id/fabMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="right|bottom"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             fab:menu_animationDelayPerItem="50"
             fab:menu_backgroundColor="@android:color/transparent"
             fab:menu_buttonSpacing="0dp"
@@ -103,6 +128,7 @@
                 fab:fab_colorPressed="@color/colorPrimaryDark"
                 fab:fab_label="Add Income"
                 fab:fab_size="mini" />
+
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/addExpenseBtn"
                 android:layout_width="wrap_content"
