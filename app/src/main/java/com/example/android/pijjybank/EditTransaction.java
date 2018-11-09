@@ -117,6 +117,21 @@ public class EditTransaction extends AppCompatActivity {
         };
         transactionReference.addValueEventListener(transactionEventListener);
 
+        //onclick listener for spinner
+        categorySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//to get Value of Spinner Item
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Category clickedItem = (Category) parent.getItemAtPosition(position);
+                categoryIcon = clickedItem.getCategoryIcon();
+                category = clickedItem.categoryName;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         //Onclick listener for saving edits
         saveEditsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,7 +272,7 @@ public class EditTransaction extends AppCompatActivity {
             }
             position++;
         }
-        return position;
+        return position%categoryList.size();
 
     }
 
@@ -269,19 +284,7 @@ public class EditTransaction extends AppCompatActivity {
             categorySP.setAdapter(categoryAdapter);// Apply the adapter to the spinner
             int current = searchArrayList(expenseCategoryArrayList, category, categoryIcon);
             categorySP.setSelection(current, true);
-            categorySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//to get Value of Spinner Item
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    Category clickedItem = (Category) parent.getItemAtPosition(position);
-                    categoryIcon = clickedItem.getCategoryIcon();
-                    category = clickedItem.getCategoryName();
-                }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
 
         } else { //mode 1 ==> Income
 
@@ -290,20 +293,6 @@ public class EditTransaction extends AppCompatActivity {
             categorySP.setAdapter(categoryAdapter);// Apply the adapter to the spinner
             int current = incomeCategoryArrayList.indexOf(category);
             categorySP.setSelection(current, true);
-            categorySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//to get Value of Spinner Item
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    Category clickedItem = (Category) parent.getItemAtPosition(position);
-                    categoryIcon = clickedItem.getCategoryIcon();
-                    category = clickedItem.getCategoryName();
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-
         }
 
         //setup Mode Spinner
@@ -348,7 +337,6 @@ public class EditTransaction extends AppCompatActivity {
         title = titleET.getText().toString().trim();
         party = partyET.getText().toString().trim();
         mode = modeSP.getSelectedItem().toString();
-        category = categorySP.getSelectedItem().toString();
         description = descriptionET.getText().toString().trim();
         String temp = amountET.getText().toString();
 

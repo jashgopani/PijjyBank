@@ -47,14 +47,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.dateTextView.setText(transaction.getDate());
         holder.amountTextView.setText(transaction.getAmount());
 
-//        final String x = holder.titleTextView.getText().toString();
-//        holder.itemCard.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(mCtx, "Clicked "+x, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
     }
 
     @Override

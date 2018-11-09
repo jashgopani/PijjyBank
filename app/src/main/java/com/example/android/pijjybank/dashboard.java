@@ -151,9 +151,11 @@ public class dashboard extends AppCompatActivity {
         expenseSum = new float[7];
         incomeSum = new float[6];
         TransactionsRef = FirebaseDatabase.getInstance().getReference("Transactions");
+
         ValueEventListener transactionListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                transactionList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Transaction temp = snapshot.getValue(Transaction.class);
                     if (temp.uid.equals(id)) {
@@ -232,6 +234,7 @@ public class dashboard extends AppCompatActivity {
             } else if (category.compareTo(expenseCategories[6]) == 0) {
                 expenseSum[6] += val;
             } else {
+                expenseSum[6] += val;
                 Toast.makeText(this, "Some other error", Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -249,6 +252,7 @@ public class dashboard extends AppCompatActivity {
             } else if (category.compareTo(incomeCategories[5]) == 0) {
                 incomeSum[5] += val;
             } else {
+                incomeSum[5] += val;
                 Toast.makeText(this, "Some other error", Toast.LENGTH_SHORT).show();
             }
         }
@@ -304,13 +308,16 @@ public class dashboard extends AppCompatActivity {
     }
 
     public void drawValueBar(float sum) {
-        float percent = (sum / userbudget) * 100;
+        if(sum > 0){
+            valueBar.animate(0, sum, 1500);
+            valueBar.setValue(sum);
+        }else{
+            valueBar.setValue(0);
+        }
         valueBar.setMinMax(0, userbudget);
-        valueBar.animate(0, sum, 1500);
         valueBar.setInterval(0f);
         valueBar.setDrawBorder(false);
         valueBar.setColor(Color.rgb(255, 0, 0));
-        valueBar.setValue(sum);
         valueBar.setValueTextSize(10f);
         valueBar.setMinMaxTextSize(10f);
         valueBar.invalidate();

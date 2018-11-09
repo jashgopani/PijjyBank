@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -85,13 +86,7 @@ public class Transaction {
 
     public Intent openTransaction(Context context) {
 
-//        String uid;
-//        String title;
-//        String category;
-//        String amount;
-//        String mode,party,description;
-//        String type;//Expense or Income
-
+        Toast.makeText(context, "Category : "+category, Toast.LENGTH_LONG).show();
         Intent intent = new Intent(context, OpenTransaction.class);
         Bundle bundle = new Bundle();
         bundle.putString("uid", uid);

@@ -117,6 +117,7 @@ public class AddExpenseActivity extends AppCompatActivity {
                     DatabaseReference child = database.child("Transactions");
                     child.push().setValue(t);
                     Toast.makeText(AddExpenseActivity.this, "Expense Added Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddExpenseActivity.this, categoryValue, Toast.LENGTH_LONG).show();
                     finish();
                     startActivity(new Intent(AddExpenseActivity.this, PayrollActivity.class));
                 }

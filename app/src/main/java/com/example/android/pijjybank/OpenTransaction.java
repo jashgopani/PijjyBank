@@ -96,7 +96,7 @@ public class OpenTransaction extends AppCompatActivity {
          *       while searching match the uid in the transaction and also store the key of the current transaction node
          *       if uid matches current user, then
          * */
-        ValueEventListener transactionEventListener = new ValueEventListener() {
+        transactionReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -119,8 +119,33 @@ public class OpenTransaction extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        };
-        transactionReference.addValueEventListener(transactionEventListener);
+        });
+
+//        ValueEventListener transactionEventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    Transaction temp = snapshot.getValue(Transaction.class);
+//                    key = snapshot.getKey();
+//                    if (temp.getUid().compareTo(id) == 0) { // if uid matches
+//                        if (transactionMatched(temp)) {
+//                            retrivedObject = temp;
+//                            key = snapshot.getKey();
+//                            break;
+//                        }
+//                    }
+//                }
+//                if (retrivedObject == null) {
+//                    Toast.makeText(OpenTransaction.this, "Error 404 : Object not found", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        };
+//        transactionReference.addValueEventListener(transactionEventListener);
 
 
         //Set Onclick Listener for delete button

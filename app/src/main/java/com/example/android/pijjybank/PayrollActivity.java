@@ -119,9 +119,35 @@ public class PayrollActivity extends AppCompatActivity {
         //Transactions retive
         transactionList = new ArrayList<>();
         TransactionsRef = FirebaseDatabase.getInstance().getReference("Transactions");
+//
+//        TransactionsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    Transaction temp = snapshot.getValue(Transaction.class);
+//                    if (temp.uid.equals(id)) {
+//                        transactionList.add(temp);
+//                    }
+//                }
+//                Collections.reverse(transactionList);
+//                expenseAdapter.notifyDataSetChanged();
+//                if (transactionList.size() == 0) {
+//                    zeroTransactions.setVisibility(LinearLayout.VISIBLE);
+//                } else {
+//                    zeroTransactions.setVisibility(LinearLayout.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
         ValueEventListener transactionListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                transactionList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Transaction temp = snapshot.getValue(Transaction.class);
                     if (temp.uid.equals(id)) {
@@ -209,7 +235,6 @@ public class PayrollActivity extends AppCompatActivity {
             }
         });
 
-//        usernameSideBar.setText(currentUserName);
 
     }
 

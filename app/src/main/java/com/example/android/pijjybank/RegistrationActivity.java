@@ -122,9 +122,9 @@ public class RegistrationActivity extends AppCompatActivity {
         name = etRegName.getText().toString();
 
         if (username.isEmpty() || password.isEmpty() || cpassword.isEmpty() || name.isEmpty()) {
-            Toast.makeText(this, "Detials cannot be blank ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Details cannot be blank ", Toast.LENGTH_SHORT).show();
         } else if (!cpassword.equals(password)) {
-            Toast.makeText(this, "Passwords do not match " + cpassword, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Passwords do not match ", Toast.LENGTH_SHORT).show();
         } else {
             result = true;
         }
