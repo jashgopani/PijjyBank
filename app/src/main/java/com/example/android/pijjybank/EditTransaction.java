@@ -358,6 +358,9 @@ public class EditTransaction extends AppCompatActivity {
                 int tempAmount = Integer.parseInt(temp);
                 tempAmount = tempAmount * 82;
                 amount = Integer.toString(tempAmount);
+            }else if(currency.equals("INR")){
+                int tempAmount = Integer.parseInt(temp);
+                amount = Integer.toString(tempAmount);
             }
         }
 
