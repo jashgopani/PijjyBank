@@ -171,6 +171,9 @@ public class AddIncomeActivity extends AppCompatActivity {
                 int tempAmount = Integer.parseInt(temp);
                 tempAmount = tempAmount * 82;
                 amountValue = Integer.toString(tempAmount);
+            }else if(currencyTypeValue.equals("INR")){
+                int tempAmount = Integer.parseInt(temp);
+                amountValue = Integer.toString(tempAmount);
             }
         }
 

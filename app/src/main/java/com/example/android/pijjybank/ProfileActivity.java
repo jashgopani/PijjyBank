@@ -104,7 +104,7 @@ public class ProfileActivity extends AppCompatActivity {
                     User current = snapshot.getValue(User.class);
                     String key = snapshot.getKey();
                     navHeaderName = current.getName();
-                    if (key.equals(id)) {
+                    if (key.compareTo(id)==0) {
                         navHeaderName = current.getName();
                         usernameSideBar.setText(navHeaderName);
                         usernametv.setText(navHeaderName);

@@ -118,7 +118,6 @@ public class AddExpenseActivity extends AppCompatActivity {
                     DatabaseReference child = database.child("Transactions");
                     child.push().setValue(t);
                     Toast.makeText(AddExpenseActivity.this, "Expense Added Successfully", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(AddExpenseActivity.this, categoryValue, Toast.LENGTH_LONG).show();
                     finish();
                     startActivity(new Intent(AddExpenseActivity.this, PayrollActivity.class));
                 }
@@ -169,6 +168,7 @@ public class AddExpenseActivity extends AppCompatActivity {
                 int tempAmount = Integer.parseInt(temp);
                 tempAmount = tempAmount * 72;
                 amountValue = Integer.toString(tempAmount);
+                Toast.makeText(this, amountValue, Toast.LENGTH_SHORT).show();
             }else if(currencyTypeValue.equals("UAE")){
                 int tempAmount = Integer.parseInt(temp);
                 tempAmount = tempAmount * 20;
@@ -176,6 +176,9 @@ public class AddExpenseActivity extends AppCompatActivity {
             }else if(currencyTypeValue.equals("EUR")){
                 int tempAmount = Integer.parseInt(temp);
                 tempAmount = tempAmount * 82;
+                amountValue = Integer.toString(tempAmount);
+            }else if(currencyTypeValue.equals("INR")){
+                int tempAmount = Integer.parseInt(temp);
                 amountValue = Integer.toString(tempAmount);
             }
         }
