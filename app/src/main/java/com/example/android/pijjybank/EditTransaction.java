@@ -319,8 +319,8 @@ public class EditTransaction extends AppCompatActivity {
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         currencySP.setAdapter(adapter3);
         Toast.makeText(this, currency, Toast.LENGTH_SHORT).show();
-        int current3 = getStringItemPosition(currency,R.array.currency_array);
-        currencySP.setSelection(current3);
+        int ci = getStringItemPosition(currency,R.array.currency_array);
+        currencySP.setSelection(ci);
         currencySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
