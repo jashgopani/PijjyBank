@@ -35,6 +35,7 @@
                 tools:ignore="InvalidId"></android.support.v7.widget.Toolbar>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/budgetTrackerCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -48,7 +49,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Total Expenditure"
+                        android:text="Budget Tracker (%)"
                         android:textAlignment="center"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -131,52 +132,7 @@
                         android:background="#ccc"
                         android:layout_marginBottom="5dp"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="4"
-                            android:text="Total Expenses"
-                            android:textAlignment="textStart" />
-
-                        <TextView
-                            android:id="@+id/totalExpenses"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_weight="1"
-                            android:textAlignment="center"
-                            tools:text="45" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="4"
-                            android:text="Total Incomes"
-                            android:textAlignment="textStart" />
-
-                        <TextView
-                            android:id="@+id/totalIncome"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_weight="1"
-                            android:textAlignment="center"
-                            tools:text="45" />
-                    </LinearLayout>
-
+                    <!--Budget Amount-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -201,6 +157,57 @@
                             tools:text="45" />
                     </LinearLayout>
 
+                    <!--Total Expenses-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text="Total Expenses"
+                            android:textAlignment="textStart" />
+
+                        <TextView
+                            android:id="@+id/totalExpenses"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="#000000"
+                            tools:text="45" />
+                    </LinearLayout>
+
+                    <!--Total Incomes-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text="Total Incomes"
+                            android:textAlignment="textStart" />
+
+                        <TextView
+                            android:id="@+id/totalIncome"
+                            android:textColor="#000000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            tools:text="45" />
+                    </LinearLayout>
+
+                    <!--Total Expense Amount-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -225,6 +232,7 @@
                             tools:text="45" />
                     </LinearLayout>
 
+                    <!--Total Income Amount-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -248,11 +256,15 @@
                             android:textColor="#00ff00"
                             tools:text="45" />
                     </LinearLayout>
+
+                    <!--Line-->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="#ccc"
                         android:layout_marginBottom="5dp"/>
+
+                    <!--Total amount left-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -263,11 +275,36 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="4"
-                            android:text="Amount Left"
+                            android:text="Total Amount Left"
                             android:textAlignment="textStart" />
 
                         <TextView
                             android:id="@+id/amountLeft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorSecondary"
+                            tools:text="45" />
+                    </LinearLayout>
+
+                    <!--Budget Amount Left-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text="Budget Amount Left"
+                            android:textAlignment="textStart" />
+
+                        <TextView
+                            android:id="@+id/budgetAmountLeft"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"

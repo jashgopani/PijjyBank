@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,8 +58,9 @@ public class dashboard extends AppCompatActivity {
     String[] incomeCategories = {"Salary", "Gift", "Depreciation", "Cashback", "Prize", "Other"};
     float expenseSum[];
     float incomeSum[];
-    TextView totalExpenses, totalIncomes, budgetAmount, totalExpensesAmount, totalIncomeAmount, amountLeft;
+    TextView totalExpenses, totalIncomes, budgetAmount, totalExpensesAmount, totalIncomeAmount, amountLeft, budgetAmountLeft;
     int expenseCount, incomeCount;
+    CardView budgetTrackerCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +74,22 @@ public class dashboard extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24px);
 
+        //Budget tracker card
+        budgetTrackerCard = (CardView)findViewById(R.id.budgetTrackerCard);
+
 
         //Initializing TextViews
         totalExpenses = (TextView) findViewById(R.id.totalExpenses);
+        totalExpenses.setText("0");
         totalIncomes = (TextView) findViewById(R.id.totalIncome);
+        totalIncomes.setText("0");
         budgetAmount = (TextView) findViewById(R.id.budget);
+        budgetAmount.setText("0");
         totalExpensesAmount = (TextView) findViewById(R.id.totalExpenseAmount);
+        totalExpensesAmount.setText("0");
         totalIncomeAmount = (TextView) findViewById(R.id.totalIncomeAmount);
         amountLeft = (TextView) findViewById(R.id.amountLeft);
+        budgetAmountLeft = (TextView)findViewById(R.id.budgetAmountLeft);
 
 
         //Firebase auth
@@ -156,6 +166,7 @@ public class dashboard extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 transactionList.clear();
+                setCounts(transactionList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Transaction temp = snapshot.getValue(Transaction.class);
                     if (temp.uid.equals(id)) {
@@ -263,10 +274,12 @@ public class dashboard extends AppCompatActivity {
         drawValueBar(sumOfArray(expenseSum));
         totalExpensesAmount.setText(Float.toString(sumOfArray(expenseSum)));
         totalIncomeAmount.setText(Float.toString(sumOfArray(incomeSum)));
-        float finalAmt = userbudget - sumOfArray(expenseSum) + sumOfArray(incomeSum);
+        float finalAmt = sumOfArray(incomeSum) - sumOfArray(expenseSum) ;
         if(finalAmt <= 0)
             finalAmt = 0;
         amountLeft.setText(Float.toString(finalAmt));
+        float budgetFinalAmt = sumOfArray(incomeSum) - sumOfArray(expenseSum)  + userbudget;
+        budgetAmountLeft.setText(Float.toString(budgetFinalAmt));
 
     }
 
@@ -348,5 +361,11 @@ public class dashboard extends AppCompatActivity {
         totalExpenses.setText(Integer.toString(expenseCount));
 //        incomeCount = mtransactionList.size() - expenseCount;
         totalIncomes.setText(Integer.toString(incomeCount));
+
+        if(incomeCount == 0 && incomeCount ==0){
+            budgetTrackerCard.setVisibility(CardView.GONE);
+        }else{
+            budgetTrackerCard.setVisibility(CardView.VISIBLE);
+        }
     }
 }

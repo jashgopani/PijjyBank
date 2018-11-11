@@ -28,10 +28,10 @@ import java.util.ArrayList;
 
 public class OpenTransaction extends AppCompatActivity {
     Toolbar toolbar;
-    String uid, title, category, amount, mode, party, description, type, date; //Transaction Details
+    String uid, title, category, amount, mode, party, description, type, date,currency; //Transaction Details
     int categoryIcon;//CategoryIcon
     LinearLayout editTransactionLayout;
-    TextView titleTV, categoryTV, amountTV, modeTV, partyTV, descriptionTV, typeTV, dateTV;
+    TextView titleTV, categoryTV, amountTV, modeTV, partyTV, descriptionTV, typeTV, dateTV,currencyTV;
     EditText titleET, amountET, partyET, descriptionET;
     private Spinner categorySP, modeSP, currencySP;
     private ArrayList<Category> expenseCategoryArrayList, incomeCategoryArrayList;
@@ -65,6 +65,7 @@ public class OpenTransaction extends AppCompatActivity {
         type = transactionDetails.getString("type");//Expense or Income
         date = transactionDetails.getString("date");
         categoryIcon = transactionDetails.getInt("categoryIcon");
+        currency = transactionDetails.getString("currency");
 
 
         //Setup the Activity
@@ -174,6 +175,7 @@ public class OpenTransaction extends AppCompatActivity {
         modeTV = (TextView) findViewById(R.id.displayMode);
         dateTV = (TextView) findViewById(R.id.displayDate);
         descriptionTV = (TextView) findViewById(R.id.displayDescription);
+        currencyTV = (TextView)findViewById(R.id.displayCurrency);
 
         //find all buttons
         editButton = (FloatingActionButton) findViewById(R.id.editButton);
@@ -205,6 +207,7 @@ public class OpenTransaction extends AppCompatActivity {
         partyTV.setText(party);
         modeTV.setText(mode);
         dateTV.setText(date);
+        currencyTV.setText(currency);
 
         if (!description.equals("")) {
             descriptionTV.setText(description);

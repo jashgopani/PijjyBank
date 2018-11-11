@@ -64,6 +64,31 @@
                     tools:text="Expense" />
             </LinearLayout>
 
+            <!--Display Party-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="Party :"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/displayParty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    tools:text="Shopkeeper" />
+            </LinearLayout>
+
             <!--Display Type-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="Amount :"
+                    android:text="Amount (in INR) :"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold" />
 
@@ -164,7 +189,7 @@
                     tools:text="Cash" />
             </LinearLayout>
 
-            <!--Display Party-->
+            <!--Display Amount-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -176,18 +201,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="Party :"
+                    android:text="Currency :"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/displayParty"
+                    android:id="@+id/displayCurrency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    tools:text="Shopkeeper" />
+                    tools:text="USD" />
             </LinearLayout>
+
 
             <!--Display Date-->
             <LinearLayout

@@ -64,6 +64,7 @@ public class EditTransaction extends AppCompatActivity {
         type = transactionDetails.getString("type");//Expense or Income
         date = transactionDetails.getString("date");
         categoryIcon = transactionDetails.getInt("categoryIcon");
+        currency = transactionDetails.getString("currency");
 
 
         //Setting flag to show only those categories that belong to the type of transaction i.e income / expense spinners
@@ -138,7 +139,7 @@ public class EditTransaction extends AppCompatActivity {
             public void onClick(View v) {
                 //save edits
                 if (getAllValues()) {
-                    Transaction updated = new Transaction(type, id, title, categoryIcon, category, amount, mode, party, description);
+                    Transaction updated = new Transaction(type, id, title, categoryIcon, category, amount, mode,currency, party, description);
                     updated.setDate(date);
                     transactionReference.child(key).setValue(updated).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -317,7 +318,9 @@ public class EditTransaction extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.currency_array, android.R.layout.simple_spinner_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         currencySP.setAdapter(adapter3);
-        currencySP.setSelection(0);
+        Toast.makeText(this, currency, Toast.LENGTH_SHORT).show();
+        int current3 = getStringItemPosition(currency,R.array.currency_array);
+        currencySP.setSelection(current3);
         currencySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -343,7 +346,19 @@ public class EditTransaction extends AppCompatActivity {
         if (temp.trim().isEmpty()) {
             amount = "0";
         } else {
-            amount = temp;
+            if(currency.equals("USD")){
+                int tempAmount = Integer.parseInt(temp);
+                tempAmount = tempAmount * 72;
+                amount = Integer.toString(tempAmount);
+            }else if(currency.equals("UAE")){
+                int tempAmount = Integer.parseInt(temp);
+                tempAmount = tempAmount * 20;
+                amount = Integer.toString(tempAmount);
+            }else if(currency.equals("EUR")){
+                int tempAmount = Integer.parseInt(temp);
+                tempAmount = tempAmount * 82;
+                amount = Integer.toString(tempAmount);
+            }
         }
 
         if (title.isEmpty() || party.isEmpty() || mode.isEmpty()) {

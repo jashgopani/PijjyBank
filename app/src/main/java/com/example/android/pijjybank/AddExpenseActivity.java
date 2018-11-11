@@ -82,6 +82,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         });
 
         //Currency Type
+        final EditText amtField = ((EditText) findViewById(R.id.expenseAmount));
         currencyType = (Spinner) findViewById(R.id.expenseCurrency);
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.currency_array, android.R.layout.simple_spinner_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -113,7 +114,7 @@ public class AddExpenseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (getAllValues()) {
-                    Transaction t = new Transaction("Expense", userID, titleValue, categoryIconValue, categoryValue, amountValue, modeValue, payeeValue, descriptionValue);
+                    Transaction t = new Transaction("Expense", userID, titleValue, categoryIconValue, categoryValue, amountValue,currencyTypeValue, modeValue, payeeValue, descriptionValue);
                     DatabaseReference child = database.child("Transactions");
                     child.push().setValue(t);
                     Toast.makeText(AddExpenseActivity.this, "Expense Added Successfully", Toast.LENGTH_SHORT).show();
@@ -125,6 +126,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         });
 
     }
+
 
     public void initList() {
         categoryArrayList = new ArrayList<>();
@@ -159,11 +161,25 @@ public class AddExpenseActivity extends AppCompatActivity {
         descriptionValue = ((EditText) findViewById(R.id.expenseDescription)).getText().toString().trim();
         String temp = ((EditText) findViewById(R.id.expenseAmount)).getText().toString();
 
+
         if (temp.trim().isEmpty()) {
             amountValue = "0";
         } else {
-            amountValue = temp;
+            if(currencyTypeValue.equals("USD")){
+                int tempAmount = Integer.parseInt(temp);
+                tempAmount = tempAmount * 72;
+                amountValue = Integer.toString(tempAmount);
+            }else if(currencyTypeValue.equals("UAE")){
+                int tempAmount = Integer.parseInt(temp);
+                tempAmount = tempAmount * 20;
+                amountValue = Integer.toString(tempAmount);
+            }else if(currencyTypeValue.equals("EUR")){
+                int tempAmount = Integer.parseInt(temp);
+                tempAmount = tempAmount * 82;
+                amountValue = Integer.toString(tempAmount);
+            }
         }
+
 
         if (titleValue.isEmpty() || payeeValue.isEmpty() || modeValue.isEmpty() || currencyTypeValue.isEmpty()) {
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();

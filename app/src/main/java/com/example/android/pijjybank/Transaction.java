@@ -16,7 +16,7 @@ public class Transaction {
     String amount;
     String mode, party, description;
     String type;//Expense or Income
-
+    String currency;
     String date;
 
     public String getUid() {
@@ -25,7 +25,7 @@ public class Transaction {
 
     int categoryIcon;
 
-    public Transaction(String type, String uid, String title, int categoryIcon, String category, String amount, String mode, String party, String description) {
+    public Transaction(String type, String uid, String title, int categoryIcon, String category, String amount, String mode,String currency, String party, String description) {
         this.type = type;
         this.uid = uid;
         this.title = title;
@@ -37,6 +37,15 @@ public class Transaction {
         DateFormat df = new SimpleDateFormat("dd MMM, yyyy");
         this.date = df.format(Calendar.getInstance().getTime());
         this.categoryIcon = categoryIcon;
+        this.currency = currency;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public void setDate(String date) {
@@ -96,6 +105,7 @@ public class Transaction {
         bundle.putString("description", description);
         bundle.putString("type", type);
         bundle.putString("date", date);
+        bundle.putString("currency",currency);
         bundle.putInt("categoryIcon", categoryIcon);
         intent.putExtras(bundle);
         return intent;

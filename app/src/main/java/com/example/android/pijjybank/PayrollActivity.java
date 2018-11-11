@@ -268,6 +268,7 @@ public class PayrollActivity extends AppCompatActivity {
         //Input Dialog Box For getting password
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter Monthly Budget");
+        builder.setMessage("This budget will be used to calculate summary of your expenses.\nThis is not the base INCOME amount for all your expenses");
         // Set up the input
         final EditText input = new EditText(this);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text

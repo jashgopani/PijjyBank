@@ -112,7 +112,7 @@ public class AddIncomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (getAllValues()) {
-                    Transaction t = new Transaction("Income", userID, titleValue, categoryIconValue, categoryValue, amountValue, modeValue, payerValue, descriptionValue);
+                    Transaction t = new Transaction("Income", userID, titleValue, categoryIconValue, categoryValue, amountValue, modeValue,currencyTypeValue, payerValue, descriptionValue);
                     DatabaseReference child = database.child("Transactions");
                     child.push().setValue(t);
                     Toast.makeText(AddIncomeActivity.this, "Income Added Successfully", Toast.LENGTH_SHORT).show();
@@ -159,7 +159,19 @@ public class AddIncomeActivity extends AppCompatActivity {
         if (temp.trim().isEmpty()) {
             amountValue = "0";
         } else {
-            amountValue = temp;
+            if(currencyTypeValue.equals("USD")){
+                int tempAmount = Integer.parseInt(temp);
+                tempAmount = tempAmount * 72;
+                amountValue = Integer.toString(tempAmount);
+            }else if(currencyTypeValue.equals("UAE")){
+                int tempAmount = Integer.parseInt(temp);
+                tempAmount = tempAmount * 20;
+                amountValue = Integer.toString(tempAmount);
+            }else if(currencyTypeValue.equals("EUR")){
+                int tempAmount = Integer.parseInt(temp);
+                tempAmount = tempAmount * 82;
+                amountValue = Integer.toString(tempAmount);
+            }
         }
 
         if (titleValue.isEmpty() || payerValue.isEmpty() || modeValue.isEmpty() || currencyTypeValue.isEmpty()) {

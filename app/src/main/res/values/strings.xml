@@ -24,10 +24,8 @@
     <string-array name="currency_array">
         <item>INR</item>
         <item>USD</item>
-        <item>AUD</item>
         <item>EUR</item>
-        <item>JPY</item>
-        <item>GBP</item>
+        <item>UAE</item>
     </string-array>
 
     <string-array name="expenseCategory_array">

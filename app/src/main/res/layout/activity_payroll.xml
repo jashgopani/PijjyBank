@@ -75,6 +75,7 @@
         android:layout_height="wrap_content">
 
         <com.github.clans.fab.FloatingActionMenu
+            android:tooltipText="Add a new Transaction"
             android:id="@+id/fabMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

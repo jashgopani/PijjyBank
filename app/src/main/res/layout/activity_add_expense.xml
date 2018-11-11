@@ -67,6 +67,7 @@
                     android:text="Amount" />
 
                 <EditText
+                    android:text="0"
                     android:backgroundTint="@color/colorPrimary"
                     android:id="@+id/expenseAmount"
                     android:layout_width="match_parent"
