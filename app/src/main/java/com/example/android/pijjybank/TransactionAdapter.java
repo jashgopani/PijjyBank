@@ -46,6 +46,11 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.imageview.setImageResource(transaction.categoryIcon);
         holder.dateTextView.setText(transaction.getDate());
         holder.amountTextView.setText(transaction.getAmount());
+        if(transaction.getType().compareTo("Expense")==0){
+            holder.transactionCategoryIcon.setImageResource(R.drawable.down_arrow);
+        }else if(transaction.getType().compareTo("Income")==0){
+            holder.transactionCategoryIcon.setImageResource(R.drawable.up_arrow);
+        }
 
     }
 
@@ -65,7 +70,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     class ExpenseViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageview;
+        ImageView imageview,transactionCategoryIcon;
         TextView titleTextView, dateTextView, amountTextView;
         CardView itemCard;
 
@@ -77,6 +82,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             titleTextView = itemView.findViewById(R.id.title_text_view);
             amountTextView = itemView.findViewById(R.id.amount_text_view);
             dateTextView = itemView.findViewById(R.id.date_text_view);
+            transactionCategoryIcon = itemView.findViewById(R.id.transactionTypeArrow);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

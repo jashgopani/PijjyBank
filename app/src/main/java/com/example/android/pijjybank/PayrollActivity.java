@@ -1,10 +1,13 @@
 package com.example.android.pijjybank;
 
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -98,7 +101,7 @@ public class PayrollActivity extends AppCompatActivity {
                     User current = snapshot.getValue(User.class);
                     String key = snapshot.getKey();
                     navHeaderName = current.getName();
-                    if (key.equals(id)) {
+                    if (key.compareTo(id)==0) {
                         navHeaderName = current.getName();
                         usernameSideBar.setText(navHeaderName);
                         if (current.getBudget() == 0) {
@@ -115,7 +118,7 @@ public class PayrollActivity extends AppCompatActivity {
 
             }
         };
-        UserRef.addValueEventListener(nameListener);
+        UserRef.orderByChild("date").addValueEventListener(nameListener);
 
         //Transactions retive
         transactionList = new ArrayList<>();
@@ -128,7 +131,7 @@ public class PayrollActivity extends AppCompatActivity {
                 transactionList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Transaction temp = snapshot.getValue(Transaction.class);
-                    if (temp.uid.equals(id)) {
+                    if (temp.uid.compareTo(id)==0) {
                         transactionList.add(temp);
                     }
                 }
@@ -212,7 +215,6 @@ public class PayrollActivity extends AppCompatActivity {
                 startActivity(new Intent(PayrollActivity.this, AddIncomeActivity.class));
             }
         });
-
 
     }
 

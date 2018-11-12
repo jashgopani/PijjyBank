@@ -1,10 +1,13 @@
 package com.example.android.pijjybank;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -120,6 +123,7 @@ public class dashboard extends AppCompatActivity {
         }
         emailSideBar.setText(userEmail);
 
+
         //Retriving Current Username and updating user details
         UserRef = FirebaseDatabase.getInstance().getReference("Users");
         ValueEventListener nameListener = new ValueEventListener() {
@@ -169,7 +173,7 @@ public class dashboard extends AppCompatActivity {
                 setCounts(transactionList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Transaction temp = snapshot.getValue(Transaction.class);
-                    if (temp.uid.equals(id)) {
+                    if (temp.uid.compareTo(id)==0) {
                         transactionList.add(temp);
                         setCounts(transactionList);
                         categorizeExpenses(temp);
@@ -362,10 +366,11 @@ public class dashboard extends AppCompatActivity {
 //        incomeCount = mtransactionList.size() - expenseCount;
         totalIncomes.setText(Integer.toString(incomeCount));
 
-        if(incomeCount == 0 && incomeCount ==0){
+        if(expenseCount == 0){
             budgetTrackerCard.setVisibility(CardView.GONE);
         }else{
             budgetTrackerCard.setVisibility(CardView.VISIBLE);
         }
     }
+
 }
