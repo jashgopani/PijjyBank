@@ -97,21 +97,28 @@ public class ProfileActivity extends AppCompatActivity {
 
         //Retriving Current Username and updating user details
         UserRef = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference userNode = UserRef.child(id);
         ValueEventListener nameListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    User current = snapshot.getValue(User.class);
-                    String key = snapshot.getKey();
-                    navHeaderName = current.getName();
-                    if (key.compareTo(id)==0) {
-                        navHeaderName = current.getName();
-                        usernameSideBar.setText(navHeaderName);
-                        usernametv.setText(navHeaderName);
-                        emailtv.setText(firebaseAuth.getCurrentUser().getEmail());
-                        budgettv.setText(Integer.toString(current.getBudget()));
-                    }
-                }
+                User current = dataSnapshot.getValue(User.class);
+                navHeaderName = current.getName();
+                usernameSideBar.setText(navHeaderName);
+                usernametv.setText(navHeaderName);
+                emailtv.setText(firebaseAuth.getCurrentUser().getEmail());
+                budgettv.setText(Integer.toString(current.getBudget()));
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    User current = snapshot.getValue(User.class);
+//                    String key = snapshot.getKey();
+//                    navHeaderName = current.getName();
+//                    if (key.compareTo(id)==0) {
+//                        navHeaderName = current.getName();
+//                        usernameSideBar.setText(navHeaderName);
+//                        usernametv.setText(navHeaderName);
+//                        emailtv.setText(firebaseAuth.getCurrentUser().getEmail());
+//                        budgettv.setText(Integer.toString(current.getBudget()));
+//                    }
+//                }
             }
 
             @Override
@@ -119,7 +126,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         };
-        UserRef.addValueEventListener(nameListener);
+        userNode.addValueEventListener(nameListener);
 
 
         //reset password link action

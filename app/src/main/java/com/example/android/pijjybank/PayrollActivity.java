@@ -94,21 +94,28 @@ public class PayrollActivity extends AppCompatActivity {
 
         //Retriving Current Username
         UserRef = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference userNode = UserRef.child(id);
         ValueEventListener nameListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    User current = snapshot.getValue(User.class);
-                    String key = snapshot.getKey();
-                    navHeaderName = current.getName();
-                    if (key.compareTo(id)==0) {
-                        navHeaderName = current.getName();
-                        usernameSideBar.setText(navHeaderName);
-                        if (current.getBudget() == 0) {
-                            getBudget(navHeaderName);
-                        }
-                    }
+                User current = dataSnapshot.getValue(User.class);
+                navHeaderName = current.getName();
+                usernameSideBar.setText(navHeaderName);
+                if (current.getBudget() == 0) {
+                    getBudget(navHeaderName);
                 }
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    User current = snapshot.getValue(User.class);
+//                    String key = snapshot.getKey();
+//                    navHeaderName = current.getName();
+//                    if (key.compareTo(id)==0) {
+//                        navHeaderName = current.getName();
+//                        usernameSideBar.setText(navHeaderName);
+//                        if (current.getBudget() == 0) {
+//                            getBudget(navHeaderName);
+//                        }
+//                    }
+//                }
 
 
             }
@@ -118,7 +125,7 @@ public class PayrollActivity extends AppCompatActivity {
 
             }
         };
-        UserRef.orderByChild("date").addValueEventListener(nameListener);
+        userNode.addValueEventListener(nameListener);
 
         //Transactions retive
         transactionList = new ArrayList<>();
@@ -149,7 +156,7 @@ public class PayrollActivity extends AppCompatActivity {
 
             }
         };
-        TransactionsRef.addValueEventListener(transactionListener);
+        TransactionsRef.orderByChild("date").addValueEventListener(transactionListener);
 
 
         Toolbar toolbar = findViewById(R.id.payroll_appbar);

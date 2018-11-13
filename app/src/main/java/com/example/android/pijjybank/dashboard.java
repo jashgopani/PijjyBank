@@ -126,6 +126,7 @@ public class dashboard extends AppCompatActivity {
 
         //Retriving Current Username and updating user details
         UserRef = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference userNode = UserRef.child(id);
         ValueEventListener nameListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -133,7 +134,7 @@ public class dashboard extends AppCompatActivity {
                     User current = snapshot.getValue(User.class);
                     String key = snapshot.getKey();
                     navHeaderName = current.getName();
-                    if (key.equals(id)) {
+                    if (key.compareTo(id)==0) {
                         navHeaderName = current.getName();
                         usernameSideBar.setText(navHeaderName);
                         userbudget = current.getBudget();
