@@ -131,4 +131,10 @@ public class RegistrationActivity extends AppCompatActivity {
         return result;
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
+    }
+
 }

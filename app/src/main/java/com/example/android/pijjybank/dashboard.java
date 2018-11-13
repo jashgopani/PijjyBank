@@ -126,7 +126,6 @@ public class dashboard extends AppCompatActivity {
 
         //Retriving Current Username and updating user details
         UserRef = FirebaseDatabase.getInstance().getReference("Users");
-        DatabaseReference userNode = UserRef.child(id);
         ValueEventListener nameListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -283,7 +282,7 @@ public class dashboard extends AppCompatActivity {
         if(finalAmt <= 0)
             finalAmt = 0;
         amountLeft.setText(Float.toString(finalAmt));
-        float budgetFinalAmt = sumOfArray(incomeSum) - sumOfArray(expenseSum)  + userbudget;
+        float budgetFinalAmt = userbudget - sumOfArray(expenseSum);
         budgetAmountLeft.setText(Float.toString(budgetFinalAmt));
 
     }
