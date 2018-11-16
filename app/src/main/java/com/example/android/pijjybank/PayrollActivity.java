@@ -99,8 +99,10 @@ public class PayrollActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User current = dataSnapshot.getValue(User.class);
-                navHeaderName = current.getName();
-                usernameSideBar.setText(navHeaderName);
+                if(current.getName()!=null){
+                    navHeaderName = current.getName();
+                    usernameSideBar.setText(navHeaderName);
+                }
                 if (current.getBudget() == 0) {
                     getBudget(navHeaderName);
                 }
