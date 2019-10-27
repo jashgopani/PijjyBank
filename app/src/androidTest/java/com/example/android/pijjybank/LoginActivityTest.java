@@ -2,8 +2,6 @@ package com.example.android.pijjybank;
 
 import android.app.Activity;
 import android.app.Instrumentation;
-import android.view.View;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -17,8 +15,6 @@ import androidx.test.rule.ActivityTestRule;
 
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.junit.Assert.assertNotNull;
@@ -51,7 +47,7 @@ public class LoginActivityTest {
 
     @After
     public void tearDown() {
-        if (fa.getCurrentUser()!=null)fa.signOut();
+        if (fa.getCurrentUser() != null) fa.signOut();
         loginActivity = null;
     }
 }
